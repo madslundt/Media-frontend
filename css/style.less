@@ -1,0 +1,96 @@
+@import "../bower_components/bootstrap/less/bootstrap.less";
+
+/* ==========================================================================
+   Mixins
+   ========================================================================== */
+.blur(@b) {
+	-webkit-filter: blur(@b);
+	-moz-filter: blur(@b);
+	-o-filter: blur(@b);
+	-ms-filter: blur(@b);
+	filter: blur(@b);
+}
+
+.box-shadow(@string) {
+	-webkit-box-shadow: @string;
+	-moz-box-shadow:    @string;
+	box-shadow:         @string;
+}
+
+
+
+body {
+	background-color: #666;
+}
+
+.container {
+	background-color: #fff;
+}
+
+.inline {
+	display: inline-block;
+}
+
+a.block {
+	display: block;
+}
+
+.medias {
+	margin: 20px auto;
+	h3, h3:visited, h3:hover, h3:active {
+		color: initial;
+		text-decoration: none;
+	}
+	h3 {
+		border-bottom: 1px dotted #000;
+		text-align: center;
+	}
+	li {
+		margin: 15px 0;
+		overflow: hidden;
+		img {
+			display: block;
+			max-width: 100%;
+			margin: auto;
+		}
+	}
+}
+
+@color_off: #ff2120;
+@color_on:  #a1cb2f;
+@color_neu: #ddd;
+.btn-media {
+	padding: 5px 10px;
+	border-radius: 5px;
+	text-decoration: inherit;
+	color: inherit;
+	.box-shadow(0 2px 3px 1px rgba(0, 0, 0, 0.16));
+	border: 1px solid #aaa;
+	padding-top: 5px;
+	overflow: hidden;
+
+	border-top: 5px solid @color_neu;
+	
+	&.on {
+		border-top: 5px solid @color_on;
+	}
+	&.off {
+		border-top: 5px solid @color_off;
+	}	
+
+	&:visited, &:hover, &:active {
+		text-decoration: none;
+		color: initial;
+	}
+
+	&:hover {
+		.box-shadow(0 0 0 1px rgba(0, 0, 0, 0.16));
+	}
+}
+
+
+
+h1 {
+	text-align: center;
+	border-bottom: 1px solid #aaa;
+}

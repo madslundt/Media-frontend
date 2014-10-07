@@ -1,0 +1,23 @@
+{
+  "name": "Media Frontend",
+  "version": "0.0.1",
+  "homepage": "https://github.com/madslundt/Media-frontend",
+  "authors": [
+    "madslundt <madssx@hotmail.com>"
+  ],
+  "description": "Web application for a quick overview for XBMC, sabNZBD, NzbDrone, CouchPotato",
+  "main": "app.js",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.26",
+    "bootstrap": "~3.2.0"
+  }
+}
