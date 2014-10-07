@@ -1,0 +1,23 @@
+<!-- <h3>{{ media.title }}</h3> -->
+<img ng-src="{{media.background}}" alt="{{media.title}}" title="{{media.title}}" />
+<a href="#" class="action"><i class="{{ media.data.paused ? 'icon-pause' : 'icon-play' }}"></i></a>
+<hr>
+<div class="control-options">
+	<i class="icon-clock">{{ media.data.timeleft }}</i>
+	<i class="icon-gauge border-left">{{ media.data.speed}}</i>
+	<i class="icon-download-alt border-left ">{{ media.data.mbleft | number:0 }} mb</i>
+	<i title="{{ media.data.have_warnings + (media.data.have_warnings < 2 ? ' warning' : ' warnings') }}" ng-show="media.data.have_warnings" class="pull-right warning icon-attention-alt"></i>
+</div>
+<div ng-if="media.data.jobs" class="media-info list-group">
+	<a href="#" class="list-group-item" ng-repeat="job in media.data.jobs">
+		<p title="{{ job.filename }}">{{ job.filename }}</p>
+		<div class="pull-right">
+			<i class="icon-clock">{{ job.timeleft }}</i>
+		</div>
+		<div class="progress progress-bar-bottom">
+			<div class="progress-bar {{ ($index == 0&&!media.data.paused) ? 'progress-bar-striped active' : '' }}"  role="progressbar" aria-valuenow="{{ (job.mb - job.mbleft) / job.mb * 100 | number:0 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ (job.mb - job.mbleft) / job.mb * 100 | number:0 }}%">
+				<span class="sr-only">45% Complete</span>
+			</div>
+		</div>
+	</a>
+</div>

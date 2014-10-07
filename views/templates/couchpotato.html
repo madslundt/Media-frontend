@@ -1,0 +1,13 @@
+<!-- <h3>{{ media.title }}</h3> -->
+<img ng-src="{{media.background}}" alt="{{media.title}}" title="{{media.title}}" />
+<hr>
+
+<div ng-if="media.data" class="media-info list-group">
+	<a href="#" class="list-group-item" ng-repeat="movie in media.data.movies">
+		<p title="{{ movie.info.original_title }}">{{ movie.info.original_title }}</p>
+		<div class="pull-right">
+			<span class="label label-year">{{ movie.info.year }}</span>
+			<i class="icon-star-empty">{{ movie.info.rating.imdb[0] }}</i>
+		</div>
+	</a>
+</div>

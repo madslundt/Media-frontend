@@ -1,4 +1,5 @@
 @import "../bower_components/bootstrap/less/bootstrap.less";
+@import "fontello.css";
 
 /* ==========================================================================
    Mixins
@@ -17,14 +18,11 @@
 	box-shadow:         @string;
 }
 
-
-
-body {
-	background-color: #666;
-}
-
-.container {
-	background-color: #fff;
+.transition-easeout(@time) {
+	-webkit-transition: all @time ease-in-out;
+	-moz-transition: all @time ease-in-out;
+	-o-transition: all @time ease-in-out;
+	transition: all @time ease-in-out;
 }
 
 .inline {
@@ -35,62 +33,163 @@ a.block {
 	display: block;
 }
 
+@color_off: #ff2120;
+@color_on:  #a1cb2f;
+@color_neu: #ddd;
+
 .medias {
 	margin: 20px auto;
 	h3, h3:visited, h3:hover, h3:active {
-		color: initial;
+		color: inherit;
 		text-decoration: none;
 	}
 	h3 {
 		border-bottom: 1px dotted #000;
 		text-align: center;
 	}
-	li {
+	.media {
 		margin: 15px 0;
 		overflow: hidden;
+		position: relative;
 		img {
 			display: block;
 			max-width: 100%;
 			margin: auto;
 		}
 	}
+
+	a {
+		color: #333;
+		&:hover, &:visited, &:active {
+			color: inherit;
+			text-decoration: none;
+		}
+	}
+
+	.control-options {
+		padding-bottom: 5px;
+		text-align: center;
+		i {
+			padding: 0 5px;
+
+			&.border-left {
+				border-left: 1px solid #333;
+			}
+			&.border-right {
+				border-right: 1px solid #333;
+			}
+		}
+		.warning {
+			color: #D77A13;
+		}
+	}
+
+	.action {
+		position: absolute;
+		left: 50%;
+		margin-left: -30px;
+		width: 20px;
+		height: 20px;
+		padding: 10px;
+		border-radius: 15px;
+		display: table;
+		top: 60px;
+		text-align: center;
+		background-color: rgba(0, 0, 0, .3);
+		font-size: 28px;
+		color: #fff;
+		.transition-easeout(.3s);
+		opacity: .7;
+		&:hover {
+			color: #fff;
+			opacity: 1;
+		}
+	}
+
+	.btn-media {
+		background-color: #fff;
+		padding: 5px 10px;
+		border-radius: 5px;
+		text-decoration: inherit;
+		color: inherit;
+		.box-shadow(0 2px 3px 1px rgba(0, 0, 0, 0.16));
+		border: 1px solid #aaa;
+		padding-top: 5px;
+		overflow: hidden;
+
+		border-top: 5px solid @color_neu;
+		
+		&.on {
+			border-top: 5px solid @color_on;
+		}
+		&.off {
+			border-top: 5px solid @color_off;
+		}	
+
+		&:visited, &:hover, &:active {
+			text-decoration: none;
+			color: inherit;
+		}
+
+		&:hover {
+			.box-shadow(0 0 0 1px rgba(0, 0, 0, 0.16));
+		}
+	}
+
+	.media-info {
+		height: 150px;
+		overflow-y: auto;
+
+		p {
+			text-overflow: ellipsis;
+			width: 50%;
+			margin: 0;
+			white-space: nowrap;
+			display: inline-block;
+			overflow: hidden;
+		}
+	}
 }
 
-@color_off: #ff2120;
-@color_on:  #a1cb2f;
-@color_neu: #ddd;
-.btn-media {
-	padding: 5px 10px;
-	border-radius: 5px;
-	text-decoration: inherit;
-	color: inherit;
-	.box-shadow(0 2px 3px 1px rgba(0, 0, 0, 0.16));
+.progress-bar-bottom {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 6px;
+	border-top-right-radius: 0;
+	border-top-left-radius: 0;
+	margin: 0;
+	box-shadow: none;
+	background: transparent;
+}
+
+.label-year {
 	border: 1px solid #aaa;
-	padding-top: 5px;
-	overflow: hidden;
-
-	border-top: 5px solid @color_neu;
-	
-	&.on {
-		border-top: 5px solid @color_on;
-	}
-	&.off {
-		border-top: 5px solid @color_off;
-	}	
-
-	&:visited, &:hover, &:active {
-		text-decoration: none;
-		color: initial;
-	}
-
-	&:hover {
-		.box-shadow(0 0 0 1px rgba(0, 0, 0, 0.16));
-	}
+	border-radius: 5px;
+	color: #aaa;
 }
-
 
 
 h1 {
 	text-align: center;
 	border-bottom: 1px solid #aaa;
 }
+
+
+/*==================================
+=            Animations            =
+==================================*/
+@-webkit-keyframes hue {
+  from {
+    -webkit-filter: hue-rotate(0deg);
+  }
+
+  to {
+    -webkit-filter: hue-rotate(-360deg);
+  }
+}
+
+
+/*-----  End of Animations  ------*/
+

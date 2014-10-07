@@ -4,10 +4,14 @@ angular.module('mediaApp')
 		'use strict';
 
 		var call = CONFIG.couchpotato.url + 'api/' + CONFIG.couchpotato.api_key + '/';
+		var debug_call = 'tests/couchpotato/';
 
 		return {
 			updater_info: function() {
 				return $http.get(call + 'updater.info');
+			},
+			movie_list: function() {
+				return $http.get(debug_call + 'movie.list.json');
 			}
 		}
 	})
@@ -27,11 +31,12 @@ angular.module('mediaApp')
 	.factory('sabnzbd_api', function($http, CONFIG) {
 		'use strict';
 
-		var call = CONFIG.sabnzbd.url + 'api/' + CONFIG.sabnzbd.api_key + '/';	
+		var call = CONFIG.sabnzbd.url + 'api?output=json&apikey=' + CONFIG.sabnzbd.api_key + '&mode=';	
+		var debug_call = 'tests/sabnzbd/';
 
 		return {
-			updater_info: function() {
-				return $http.get(call + 'updater_info');
+			status: function() {
+				return $http.get(debug_call + 'qstatus.json');
 			}
 		}
 	})
