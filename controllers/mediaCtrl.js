@@ -1,5 +1,5 @@
 angular.module('mediaApp')
-	.controller('mediaCtrl', function($scope, couchpotato_api, sabnzbd_api) {
+	.controller('mediaCtrl', function($scope, couchpotato_api, sabnzbd_api, nzbdrone_api) {
 		'use strict';
 		$scope.medias = {
 			'couchpotato': {
@@ -38,5 +38,13 @@ angular.module('mediaApp')
 		},
 		function() {
 			$scope.medias.sabnzbd.status = 'off';
+		});
+
+		nzbdrone_api.history().then(function(response) {
+			$scope.medias.nzbdrone.data = response.data.records;
+			$scope.medias.nzbdrone.status = 'on';
+		},
+		function() {
+			$scope.medias.nzbdrone.status = 'off';
 		});
 	});

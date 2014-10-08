@@ -44,11 +44,27 @@ angular.module('mediaApp')
 	.factory('nzbdrone_api', function($http, CONFIG) {
 		'use strict';
 
-		var call = CONFIG.nzbdrone.url + 'api/' + CONFIG.nzbdrone.api_key + '/';	
+		var call = CONFIG.nzbdrone.url + 'api/'
+		var debug_call = 'tests/nzbdrone/';
 
 		return {
-			updater_info: function() {
-				return $http.get(call + 'updater_info');
+			calendar: function() {
+				return $http({
+					method: 'GET', 
+					url: debug_call + 'Calendar.json',
+					header: {
+						'Authorization': CONFIG.nzbdrone.api_key
+					}
+				});
+			},
+			history: function() {
+				return $http({
+					method: 'GET', 
+					url: debug_call + 'History.json',
+					header: {
+						'Authorization': CONFIG.nzbdrone.api_key
+					}
+				});
 			}
 		}
 	});

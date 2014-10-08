@@ -26,6 +26,22 @@
 	<body ng-controller="mediaCtrl">
 		<div class="container">
 			<h1 class="center">Media Frontend</h1>
+			<div class="search-box row">
+				<div class="col-sm-5 col-xs-12">
+					<input class="form-control" placeholder="Media search" />
+				</div>
+				<div class="search-results col-xs-12 col-sm-7">
+					<div ng-if="search.data" class="media-info list-group">
+						<a href="#" class="list-group-item" ng-repeat="media in search.data">
+							<p title="{{ movie.info.original_title }}">{{ movie.info.original_title }}</p>
+							<div class="pull-right">
+								<span class="label label-year">{{ movie.info.year }}</span>
+								<i class="icon-star-empty">{{ movie.info.rating.imdb[0] }}</i>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
 			<div ng-view></div>
 		</div>
 	</body>

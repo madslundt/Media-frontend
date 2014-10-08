@@ -1,5 +1,12 @@
 <!-- <h3>{{ media.title }}</h3> -->
 <img ng-src="{{media.background}}" alt="{{media.title}}" title="{{media.title}}" />
 <hr>
-<div class="control-options">
+<div ng-if="media.data" class="media-info list-group">
+	<a href="#" class="list-group-item" ng-repeat="tv in media.data" ng-if="tv.eventType != 'grabbed'">
+		<p title="{{ tv.sourceTitle }} {{ tv.episode.title }}">{{ tv.series.title }} {{ tv.episode.title }}</p>
+		<div class="pull-right">
+			<span class="label label-year">{{ tv.series.year }}</span>
+			S{{ tv.episode.seasonNumber | numberFixedLen:2 }}E{{ tv.episode.episodeNumber | numberFixedLen:2 }}
+		</div>
+	</a>
 </div>
