@@ -9,10 +9,11 @@ For security I recommend setting up a password with .htaccess and .htpasswd, or 
 How to add .htaccess and .htpasswd
 ==================================
 
-Create a file called .htpasswd and generate a username and password (http://www.htaccesstools.com/htpasswd-generator/)
+ 1. Create a file called .htpasswd and generate a username and password (http://www.htaccesstools.com/htpasswd-generator/)
+ 2. Create a file called .htaccess with the content:
 
-Create a file called .htaccess with the content:
-AuthType Basic
+<code>AuthType Basic
 AuthName "Media Frontend authentication"
 AuthUserFile <PATH TO .htpasswd>
 Require valid-user
+</code>
