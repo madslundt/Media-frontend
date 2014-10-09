@@ -1,6 +1,9 @@
 <!-- <h3>{{ media.title }}</h3> -->
 <img ng-src="{{media.background}}" alt="{{media.title}}" title="{{media.title}}" />
 <hr>
+<div class="control-options">
+	<i class="icon-download-alt">{{ media.data.movies.length }}</i>
+</div>
 
 <div ng-if="media.data" class="media-info list-group">
 	<a href="#" class="list-group-item" ng-repeat="movie in media.data.movies">

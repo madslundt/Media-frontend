@@ -1,6 +1,9 @@
 <!-- <h3>{{ media.title }}</h3> -->
 <img ng-src="{{media.background}}" alt="{{media.title}}" title="{{media.title}}" />
 <hr>
+<div class="control-options">
+	<i class="icon-download-alt">{{ media.data.upcoming.length }}</i>
+</div>
 
 <div class="btn-group-vertical btn-group-justified " data-toggle="buttons" ng-init="tv_media = media.data.history">
 	<label class="btn btn-default active" ng-click="tv_media = media.data.history">
