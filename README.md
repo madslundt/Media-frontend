@@ -12,8 +12,7 @@ How to add .htaccess and .htpasswd
  1. Create a file called .htpasswd and generate a username and password (http://www.htaccesstools.com/htpasswd-generator/)
  2. Create a file called .htaccess with the content:
 
-<code>AuthType Basic
-AuthName "Media Frontend authentication"
-AuthUserFile <PATH TO .htpasswd>
-Require valid-user
-</code>
+AuthType Basic<br />
+AuthName "Media Frontend authentication"<br />
+AuthUserFile <PATH TO .htpasswd><br />
+Require valid-user<br />
