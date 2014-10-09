@@ -1,21 +1,51 @@
+
 <!-- <h3>{{ media.title }}</h3> -->
 <img ng-src="{{media.background}}" alt="{{media.title}}" title="{{media.title}}" />
-<a href="#" class="action"><i class="{{ media.data.paused ? 'icon-pause' : 'icon-play' }}"></i></a>
+<a href="#" class="action"><i class="{{ media.data.status.paused ? 'icon-pause' : 'icon-play' }}"></i></a>
 <hr>
 <div class="control-options">
-	<i class="icon-clock">{{ media.data.timeleft }}</i>
-	<i class="icon-gauge border-left">{{ media.data.speed}}</i>
-	<i class="icon-download-alt border-left ">{{ media.data.mbleft | number:0 }} mb</i>
-	<i title="{{ media.data.have_warnings + (media.data.have_warnings < 2 ? ' warning' : ' warnings') }}" ng-show="media.data.have_warnings" class="pull-right warning icon-attention-alt"></i>
+	<i class="icon-clock">{{ media.data.status.timeleft }}</i>
+	<i class="icon-gauge border-left">{{ media.data.status.kbpersec}}</i>
+	<i class="icon-download-alt border-left ">{{ media.data.status.mbleft | number:1 }} MB</i>
+	<i title="{{ media.data.status.have_warnings + (media.data.status.have_warnings < 2 ? ' warning' : ' warnings') }}" ng-show="media.data.status.have_warnings" class="pull-right warning icon-attention-alt"></i>
 </div>
-<div ng-if="media.data.jobs" class="media-info list-group">
-	<a href="#" class="list-group-item" ng-repeat="job in media.data.jobs">
-		<p title="{{ job.filename }}">{{ job.filename }}</p>
+<div class="btn-group-vertical btn-group-justified " data-toggle="buttons" ng-init="download_status = 0">
+	<label class="btn btn-default active" ng-click="download_status = 0">
+		<input type="radio"> Queue
+	</label>
+
+	<label class="btn btn-default" ng-click="download_status = 1">
+		<input type="radio"> History
+	</label>
+</div>
+<div ng-if="download_status == 0 && media.data.status.slots" class="media-info list-group">
+	<a href="#" class="list-group-item" ng-repeat="job in media.data.status.slots">
+		<p class="season-title" title="{{ job.filename }}">{{ job.filename }}</p>
+		<span class="label label-year pull-right">{{ job.cat }}</span>
+		<p class="episode-title">{{ job.mb - job.mbleft | number:1 }}/{{ job.size }}</p>
 		<div class="pull-right">
 			<i class="icon-clock">{{ job.timeleft }}</i>
 		</div>
 		<div class="progress progress-bar-bottom">
-			<div class="progress-bar {{ ($index == 0&&!media.data.paused) ? 'progress-bar-striped active' : '' }}"  role="progressbar" aria-valuenow="{{ (job.mb - job.mbleft) / job.mb * 100 | number:0 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ (job.mb - job.mbleft) / job.mb * 100 | number:0 }}%">
+			<div class="progress-bar {{ ($index == 0&&!media.data.paused) ? 'progress-bar-striped active' : '' }}"  role="progressbar" aria-valuenow="{{ job.percentage }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ job.percentage }}%">
+				<span class="sr-only">45% Complete</span>
+			</div>
+		</div>
+	</a>
+</div>
+<div ng-if="download_status == 1 && media.data.history.slots" class="media-info list-group">
+	<a href="#" class="list-group-item" ng-repeat="job in media.data.history.slots">
+		<p class="season-title" title="{{ job.filename }}">{{ job.nzb_name }}</p>
+		<span class="label label-year pull-right">{{ job.category }}</span>
+		<p class="episode-title">{{ job.size }}</p>
+		<div class="pull-right">
+			<i class="icon-clock">{{ job.download_time / 60 }} min</i>
+		</div>
+		<div class="progress progress-bar-bottom">
+			<div ng-if="job.status == 'Failed'" class="progress-bar progress-bar-danger"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+				<span class="sr-only">45% Complete</span>
+			</div>
+			<div ng-if="job.status == 'Completed'" class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
 				<span class="sr-only">45% Complete</span>
 			</div>
 		</div>

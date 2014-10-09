@@ -33,6 +33,10 @@ a.block {
 	display: block;
 }
 
+hr {
+	margin: 5px 0;
+}
+
 @color_off: #ff2120;
 @color_on:  #a1cb2f;
 @color_neu: #ddd;
@@ -136,18 +140,59 @@ a.block {
 		}
 	}
 
+	.btn-group-vertical {
+		.btn {
+			border-bottom-right-radius: 0 !important;
+			border-bottom-left-radius: 0 !important;
+			border-top-left-radius: 4px !important;
+			border-top-right-radius: 4px !important;
+
+			&:active, &.active {
+				border-bottom: 0;
+			}
+		}
+		&+.media-info {
+			border-top-left-radius: 0;
+			border-top-right-radius: 0;
+			a:first-child {
+				border-top: 0;
+				border-top-left-radius: 0;
+				border-top-right-radius: 0;
+			}
+		}
+	}
+
 	.media-info {
 		height: 150px;
 		overflow-y: auto;
 
+		a:last-child {
+			.progress-bar-bottom {
+				border-bottom-right-radius: 4px;
+				border-bottom-left-radius: 4px;
+			}
+		}
+
 		p {
 			text-overflow: ellipsis;
 			width: 65%;
-			margin: 0;
+			margin-bottom: 0;
 			white-space: nowrap;
 			display: inline-block;
 			overflow: hidden;
 		}
+	}
+}
+
+.media-info {
+	.episode-title {
+		margin-left: 10px;
+		font-size: .9em;
+		font-weight: bold;
+	}
+
+	.season-title {
+		font-size: 1.2em;
 	}
 }
 

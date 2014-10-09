@@ -1,12 +1,23 @@
 <!-- <h3>{{ media.title }}</h3> -->
 <img ng-src="{{media.background}}" alt="{{media.title}}" title="{{media.title}}" />
 <hr>
+
+<div class="btn-group-vertical btn-group-justified " data-toggle="buttons" ng-init="tv_media = media.data.history">
+	<label class="btn btn-default active" ng-click="tv_media = media.data.history">
+		<input type="radio"> History
+	</label>
+
+	<label class="btn btn-default" ng-click="tv_media = media.data.upcoming">
+		<input type="radio"> Upcoming
+	</label>
+</div>
 <div ng-if="media.data" class="media-info list-group">
-	<a href="#" class="list-group-item" ng-repeat="tv in media.data" ng-if="tv.eventType != 'grabbed'">
-		<p title="{{ tv.sourceTitle }} {{ tv.episode.title }}">{{ tv.series.title }} {{ tv.episode.title }}</p>
+	<a href="#" class="list-group-item" ng-repeat="tv in tv_media" ng-if="tv.eventType != 'grabbed'">
+		<p class="season-title" title="{{ tv.sourceTitle }}">{{ tv.series.title }}</p>
+		<span class="label label-year pull-right">{{ tv.series.year }}</span>
+		<p class="episode-title" title="{{ tv.episode.title }}">{{ tv.title ? tv.title : tv.episode.title }}</p>
 		<div class="pull-right">
-			<span class="label label-year">{{ tv.series.year }}</span>
-			S{{ tv.episode.seasonNumber | numberFixedLen:2 }}E{{ tv.episode.episodeNumber | numberFixedLen:2 }}
+			S{{ (tv.seasonNumber ? tv.seasonNumber : tv.episode.seasonNumber) | numberFixedLen:2 }}E{{ (tv.episodeNumber ? tv.episodeNumber : tv.episode.episodeNumber) | numberFixedLen:2 }}
 		</div>
 	</a>
 </div>

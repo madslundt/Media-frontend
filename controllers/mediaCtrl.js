@@ -6,21 +6,25 @@ angular.module('mediaApp')
 				'title': 'Couchpotato',
 				'background': 'img/couchpotato.png',
 				'template': 'views/templates/couchpotato.html',
+				'data': {}
 			},
 			'sabnzbd': {
 				'title': 'sabNZBD',
 				'background': 'img/sabnzbd.png',
-				'template': 'views/templates/sabnzbd.html'
+				'template': 'views/templates/sabnzbd.html',
+				'data': {}
 			},
 			'xbmc': {
 				'title': 'XBMC',
 				'background': 'img/xbmc.png',
-				'template': 'views/templates/xbmc.html'
+				'template': 'views/templates/xbmc.html',
+				'data': {}
 			},
 			'nzbdrone': {
 				'title': 'NzbDrone',
 				'background': 'img/nzbdrone.png',
 				'template': 'views/templates/nzbdrone.html',
+				'data': {}
 			}
 		};
 
@@ -33,7 +37,15 @@ angular.module('mediaApp')
 		});
 
 		sabnzbd_api.status().then(function(response) {
-			$scope.medias.sabnzbd.data = response.data;
+			$scope.medias.sabnzbd.data.status = response.data;
+			$scope.medias.sabnzbd.status = 'on';
+		},
+		function() {
+			$scope.medias.sabnzbd.status = 'off';
+		});
+
+		sabnzbd_api.history().then(function(response) {
+			$scope.medias.sabnzbd.data.history = response.data;
 			$scope.medias.sabnzbd.status = 'on';
 		},
 		function() {
@@ -41,7 +53,14 @@ angular.module('mediaApp')
 		});
 
 		nzbdrone_api.history().then(function(response) {
-			$scope.medias.nzbdrone.data = response.data.records;
+			$scope.medias.nzbdrone.data.history = response.data.records;
+			$scope.medias.nzbdrone.status = 'on';
+		},
+		function() {
+			$scope.medias.nzbdrone.status = 'off';
+		});
+		nzbdrone_api.calendar().then(function(response) {
+			$scope.medias.nzbdrone.data.upcoming = response.data;
 			$scope.medias.nzbdrone.status = 'on';
 		},
 		function() {

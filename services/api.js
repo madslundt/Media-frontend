@@ -36,7 +36,10 @@ angular.module('mediaApp')
 
 		return {
 			status: function() {
-				return $http.get(debug_call + 'qstatus.json');
+				return $http.get(debug_call + 'queue.json');
+			},
+			history: function() {
+				return $http.get(debug_call + 'history.json');
 			}
 		}
 	})
