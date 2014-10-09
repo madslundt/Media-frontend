@@ -20,9 +20,9 @@
 </div>
 <div class="media-info list-group">
 	<a href="#" ng-if="download_status == 0 && media.data.status.slots" class="list-group-item" ng-repeat="job in media.data.status.slots">
-		<p class="season-title" title="{{ job.filename }}">{{ job.filename }}</p>
+		<p class="media-info-title" title="{{ job.filename }}">{{ job.filename }}</p>
 		<span class="label label-year pull-right">{{ job.cat }}</span>
-		<p class="episode-title">{{ job.mb - job.mbleft | number:1 }}/{{ job.size }}</p>
+		<p class="media-info-subtitle">{{ job.mb - job.mbleft | number:1 }}/{{ job.size }}</p>
 		<div class="pull-right">
 			<i class="icon-clock">{{ job.timeleft }}</i>
 		</div>
@@ -33,9 +33,9 @@
 		</div>
 	</a>
 	<a href="#" ng-if="download_status == 1 && media.data.history.slots" class="list-group-item" ng-repeat="job in media.data.history.slots">
-		<p class="season-title" title="{{ job.filename }}">{{ job.nzb_name }}</p>
+		<p class="media-info-title" title="{{ job.filename }}">{{ job.nzb_name }}</p>
 		<span class="label label-year pull-right">{{ job.category }}</span>
-		<p class="episode-title">{{ job.size }}</p>
+		<p class="media-info-subtitle">{{ job.size }}</p>
 		<div class="pull-right">
 			<i class="icon-clock">{{ job.download_time / 60 }} min</i>
 		</div>

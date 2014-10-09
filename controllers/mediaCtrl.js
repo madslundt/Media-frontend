@@ -14,12 +14,12 @@ angular.module('mediaApp')
 				'template': 'views/templates/sabnzbd.html',
 				'data': {}
 			},
-			'xbmc': {
+			/*'xbmc': {
 				'title': 'XBMC',
 				'background': 'img/xbmc.png',
 				'template': 'views/templates/xbmc.html',
 				'data': {}
-			},
+			},*/
 			'nzbdrone': {
 				'title': 'NzbDrone',
 				'background': 'img/nzbdrone.png',
