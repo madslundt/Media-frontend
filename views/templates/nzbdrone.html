@@ -1,5 +1,5 @@
 <!-- <h3>{{ media.title }}</h3> -->
-<img ng-src="{{media.background}}" alt="{{media.title}}" title="{{media.title}}" />
+<a href="#/{{ media.title.toLowerCase() }}"><img ng-src="{{media.background}}" alt="{{media.title}}" title="{{media.title}}" /></a>
 <hr>
 <div class="control-options">
 	<i class="icon-download-alt">{{ media.data.upcoming.length }}</i>

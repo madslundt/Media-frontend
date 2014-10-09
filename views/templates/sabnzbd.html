@@ -1,7 +1,7 @@
 
 <!-- <h3>{{ media.title }}</h3> -->
-<img ng-src="{{media.background}}" alt="{{media.title}}" title="{{media.title}}" />
-<a href="#" class="action"><i class="{{ media.data.status.paused ? 'icon-pause' : 'icon-play' }}"></i></a>
+<a href="#/{{ media.title.toLowerCase() }}"><img ng-src="{{media.background}}" alt="{{media.title}}" title="{{media.title}}" /></a>
+<!--<a href="#" class="action"><i class="{{ media.data.status.paused ? 'icon-pause' : 'icon-play' }}"></i></a>-->
 <hr>
 <div class="control-options">
 	<i class="icon-clock">{{ media.data.status.timeleft }}</i>
@@ -28,23 +28,23 @@
 		</div>
 		<div class="progress progress-bar-bottom">
 			<div class="progress-bar {{ ($index == 0&&!media.data.paused) ? 'progress-bar-striped active' : '' }}"  role="progressbar" aria-valuenow="{{ job.percentage }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ job.percentage }}%">
-				<span class="sr-only">45% Complete</span>
+				<span class="sr-only">{{ job.percentage }}% Complete</span>
 			</div>
 		</div>
 	</a>
 	<a href="#" ng-if="download_status == 1 && media.data.history.slots" class="list-group-item" ng-repeat="job in media.data.history.slots">
-		<p class="media-info-title" title="{{ job.filename }}">{{ job.nzb_name }}</p>
+		<p class="media-info-title" title="{{ job.nzb_name }}">{{ job.nzb_name }}</p>
 		<span class="label label-year pull-right">{{ job.category }}</span>
 		<p class="media-info-subtitle">{{ job.size }}</p>
 		<div class="pull-right">
 			<i class="icon-clock">{{ job.download_time / 60 }} min</i>
 		</div>
 		<div class="progress progress-bar-bottom">
-			<div ng-if="job.status == 'Failed'" class="progress-bar progress-bar-danger"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-				<span class="sr-only">45% Complete</span>
+			<div ng-if="job.status == 'Failed'" class="progress-bar progress-bar-danger progress-bar-striped"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+				<span class="sr-only">100% Complete</span>
 			</div>
-			<div ng-if="job.status == 'Completed'" class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-				<span class="sr-only">45% Complete</span>
+			<div ng-if="job.status == 'Completed'" class="progress-bar progress-bar-success progress-bar-striped"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+				<span class="sr-only">100% Complete</span>
 			</div>
 		</div>
 	</a>

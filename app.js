@@ -27,6 +27,19 @@ angular.module('mediaApp', ['ngRoute', 'ngResource'])
 			templateUrl: 'views/media.html',
 			controller: 'mediaCtrl',
 		})
+
+		.when('/nzbdrone', {
+			templateUrl: 'views/nzbdrone.html',
+			controller: 'nzbdroneCtrl',
+		})
+		.when('/couchpotato', {
+			templateUrl: 'views/couchpotato.html',
+			controller: 'couchpotatoCtrl',
+		})
+		.when('/sabnzbd', {
+			templateUrl: 'views/sabnzbd.html',
+			controller: 'sabnzbdCtrl',
+		})
 		.otherwise({
 			redirectTo: '/'
 		});
