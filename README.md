@@ -10,29 +10,29 @@ For security I recommend setting up a password with .htaccess and .htpasswd, or 
 
 Edit config.js
 =============
-angular.module('mediaApp').constant('CONFIG', {
-	couchpotato: {
-		url: 'http://localhost:5050/',
-		api_key: 'key',
-		refresh: 60 
-	},
-	sabnzbd: {
-		url: 'http://localhost:8085/',
-		api_key: 'key',
-		refresh: 10,
-		refresh_idle: 60
-	},
-	xbmc: {
-		url: 'http://url',
-		api_key: 'key',
-		refresh: 60
-	},
-	nzbdrone: {
-		url: 'http://localhost:8989/',
-		api_key: 'key',
-		refresh: 60
-	},
-	debug_mode: false
+angular.module('mediaApp').constant('CONFIG', {<br />
+	couchpotato: {<br />
+		url: 'http://localhost:5050/',<br />
+		api_key: 'key',<br />
+		refresh: 60 <br />
+	},<br />
+	sabnzbd: {<br />
+		url: 'http://localhost:8085/',<br />
+		api_key: 'key',<br />
+		refresh: 10,<br />
+		refresh_idle: 60<br />
+	},<br />
+	xbmc: {<br />
+		url: 'http://url',<br />
+		api_key: 'key',<br />
+		refresh: 60<br />
+	},<br />
+	nzbdrone: {<br />
+		url: 'http://localhost:8989/',<br />
+		api_key: 'key',<br />
+		refresh: 60<br />
+	},<br />
+	debug_mode: false<br />
 });
 
 
