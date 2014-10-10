@@ -19,5 +19,6 @@ angular.module('mediaApp').constant('CONFIG', {
 		url: 'http://url',
 		api_key: 'key',
 		refresh: 60
-	}
+	},
+	debug_mode: true
 });

@@ -11,7 +11,7 @@ angular.module('mediaApp')
 				return $http.get(call + 'updater.info');
 			},
 			movie_list: function() {
-				return $http.get(debug_call + 'movie.list.json');
+				return CONFIG.debug_mode ? $http.get(debug_call + 'movie.list.json') : $http.get(call + 'movie.list');
 			}
 		}
 	})
@@ -36,10 +36,10 @@ angular.module('mediaApp')
 
 		return {
 			status: function() {
-				return $http.get(debug_call + 'queue.json');
+				return CONFIG.debug_mode ? $http.get(debug_call + 'queue.json') : $http.get(call + 'queue');
 			},
 			history: function() {
-				return $http.get(debug_call + 'history.json');
+				return CONFIG.debug_mode ? $http.get(debug_call + 'history.json') : $http.get(call + 'history');
 			}
 		}
 	})
@@ -54,7 +54,7 @@ angular.module('mediaApp')
 			calendar: function() {
 				return $http({
 					method: 'GET', 
-					url: debug_call + 'Calendar.json',
+					url: (CONFIG.debug_mode ? debug_call + 'Calendar.json' : call + 'calendar'),
 					header: {
 						'Authorization': CONFIG.nzbdrone.api_key
 					}
@@ -63,7 +63,7 @@ angular.module('mediaApp')
 			history: function() {
 				return $http({
 					method: 'GET', 
-					url: debug_call + 'History.json',
+					url: (CONFIG.debug_mode ? debug_call + 'History.json' : 'history'),
 					header: {
 						'Authorization': CONFIG.nzbdrone.api_key
 					}
