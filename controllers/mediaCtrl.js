@@ -47,13 +47,13 @@ angular.module('mediaApp')
 				console.log("status");
 				if (response.data.queue.slots.length > 0 && sabnzbd_timer_delay != CONFIG.sabnzbd.refresh) {
 					if (angular.isDefined(sabnzbd_timer)) {
-						cancel(sabnzbd_timer);
+						$interval.cancel(sabnzbd_timer);
 					}
 					sabnzbd_timer_delay = CONFIG.sabnzbd.refresh * 1000;
 					sabnzbd_timer = $interval(update_sabnzbd, sabnzbd_timer_delay);
 				} else if (sabnzbd_timer_delay != CONFIG.sabnzbd.refresh_idle) {
 					if (angular.isDefined(sabnzbd_timer)) {
-						cancel(sabnzbd_timer);
+						$interval.cancel(sabnzbd_timer);
 					}
 					sabnzbd_timer_delay = CONFIG.sabnzbd.refresh_idle * 1000;
 					sabnzbd_timer = $interval(update_sabnzbd, sabnzbd_timer_delay);
