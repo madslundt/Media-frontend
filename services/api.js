@@ -8,10 +8,42 @@ angular.module('mediaApp')
 
 		return {
 			updater_info: function() {
-				return $http.get(call + 'updater.info');
+				if (CONFIG.debug_mode) {
+					return $http.get(debug_call + 'updater.info.json');
+				} else {
+					return $http({
+						url: call + 'updater.info',
+						method: 'JSONP',
+						params: {
+							callback: 'JSON_CALLBACK'
+						},
+						responseType: 'JSON'
+					});
+				}
 			},
 			movie_list: function() {
-				return CONFIG.debug_mode ? $http.get(debug_call + 'movie.list.json') : $http.get(call + 'movie.list');
+				$.ajax({
+				    url: call + 'movie.list',
+				    dataType: 'JSONP',
+				    type: 'JSON',
+				    success: function(data) {
+				    	console.log(data);
+				    }
+				});
+				if (CONFIG.debug_mode) {
+					return $http.get(debug_call + 'movie.list.json');
+				} else {
+					return $http({
+						url: call + 'media.list',
+						method: 'JSONP',
+						params: {							
+							status: 'active',
+							release_status: 'snatched,available',
+							callback: 'JSON_CALLBACK'
+						},
+						responseType: 'JSON'
+					});
+				}
 			}
 		}
 	})
@@ -36,10 +68,32 @@ angular.module('mediaApp')
 
 		return {
 			status: function() {
-				return CONFIG.debug_mode ? $http.get(debug_call + 'queue.json') : $http.get(call + 'queue');
+				if (CONFIG.debug_mode) {
+					return $http.get(debug_call + 'queue.json');
+				} else {
+					return $http({
+						url: call + 'queue',
+						method: 'JSONP',
+						params: {
+							callback: 'JSON_CALLBACK'
+						},
+						responseType: 'JSON'
+					});
+				}
 			},
 			history: function() {
-				return CONFIG.debug_mode ? $http.get(debug_call + 'history.json') : $http.get(call + 'history');
+				if (CONFIG.debug_mode) {
+					return $http.get(debug_call + 'history.json');
+				} else {
+					return $http({
+						url: call + 'history',
+						method: 'JSONP',
+						params: {
+							callback: 'JSON_CALLBACK'
+						},
+						responseType: 'JSON'
+					});
+				}
 			}
 		}
 	})
@@ -53,19 +107,27 @@ angular.module('mediaApp')
 		return {
 			calendar: function() {
 				return $http({
-					method: 'GET', 
+					method: 'JSONP', 
 					url: (CONFIG.debug_mode ? debug_call + 'Calendar.json' : call + 'calendar'),
-					header: {
-						'Authorization': CONFIG.nzbdrone.api_key
+					params: {
+						callback: "JSONP_CALLBACK"
+					},
+					responseType: 'JSON',
+					headers: {
+						Authorization: CONFIG.nzbdrone.api_key
 					}
 				});
 			},
 			history: function() {
 				return $http({
-					method: 'GET', 
+					method: 'JSONP', 
 					url: (CONFIG.debug_mode ? debug_call + 'History.json' : 'history'),
-					header: {
-						'Authorization': CONFIG.nzbdrone.api_key
+					params: {
+						callback: "JSONP_CALLBACK"
+					},
+					responseType: 'JSON',
+					headers: {
+						Authorization: CONFIG.nzbdrone.api_key
 					}
 				});
 			}

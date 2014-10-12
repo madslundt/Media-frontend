@@ -1,5 +1,5 @@
 angular.module('mediaApp')
-	.controller('mediaCtrl', function($scope, couchpotato_api, sabnzbd_api, nzbdrone_api) {
+	.controller('mediaCtrl', function($scope, $interval, couchpotato_api, sabnzbd_api, nzbdrone_api, CONFIG) {
 		'use strict';
 		$scope.medias = {
 			'couchpotato': {
@@ -28,7 +28,9 @@ angular.module('mediaApp')
 			}
 		};
 
+		/*==========  COUHCPOTATO  ==========*/
 		couchpotato_api.movie_list().then(function(response) {
+			console.log(response);
 			$scope.medias.couchpotato.data = response.data;
 			$scope.medias.couchpotato.status = 'on';
 		},
@@ -36,22 +38,44 @@ angular.module('mediaApp')
 			$scope.medias.couchpotato.status = 'off';
 		});
 
-		sabnzbd_api.status().then(function(response) {
-			$scope.medias.sabnzbd.data.status = response.data;
-			$scope.medias.sabnzbd.status = 'on';
-		},
-		function() {
-			$scope.medias.sabnzbd.status = 'off';
-		});
 
-		sabnzbd_api.history().then(function(response) {
-			$scope.medias.sabnzbd.data.history = response.data;
-			$scope.medias.sabnzbd.status = 'on';
-		},
-		function() {
-			$scope.medias.sabnzbd.status = 'off';
-		});
+		/*==========  SABNZBD  ==========*/		
+		var sabnzbd_timer_delay = CONFIG.sabnzbd.refresh_idle * 1000;
+		var sabnzbd_timer;
+		function update_sabnzbd() {
+			sabnzbd_api.status().then(function(response) {
+				console.log("status");
+				if (response.data.queue.slots.length > 0 && sabnzbd_timer_delay != CONFIG.sabnzbd.refresh) {
+					if (angular.isDefined(sabnzbd_timer)) {
+						cancel(sabnzbd_timer);
+					}
+					sabnzbd_timer_delay = CONFIG.sabnzbd.refresh * 1000;
+					sabnzbd_timer = $interval(update_sabnzbd, sabnzbd_timer_delay);
+				} else if (sabnzbd_timer_delay != CONFIG.sabnzbd.refresh_idle) {
+					if (angular.isDefined(sabnzbd_timer)) {
+						cancel(sabnzbd_timer);
+					}
+					sabnzbd_timer_delay = CONFIG.sabnzbd.refresh_idle * 1000;
+					sabnzbd_timer = $interval(update_sabnzbd, sabnzbd_timer_delay);
+				}
+				$scope.medias.sabnzbd.data.status = response.data.queue;
+				$scope.medias.sabnzbd.status = 'on';
+			},
+			function() {
+				$scope.medias.sabnzbd.status = 'off';
+			});
+			sabnzbd_api.history().then(function(response) {
+				$scope.medias.sabnzbd.data.history = response.data.history;
+				$scope.medias.sabnzbd.status = 'on';
+			},
+			function() {
+				$scope.medias.sabnzbd.status = 'off';
+			});
+		}
+		update_sabnzbd();
 
+
+		/*==========  NZBDRONE  ==========*/		
 		nzbdrone_api.history().then(function(response) {
 			$scope.medias.nzbdrone.data.history = response.data.records;
 			$scope.medias.nzbdrone.status = 'on';
