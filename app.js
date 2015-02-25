@@ -1,46 +1,42 @@
-angular.module('mediaApp', ['ngRoute', 'ngResource'])
-	
-	.run(function($rootScope) {
-		'use strict';
+var express = require('express'),
+	http = require('http'),
+	fs = require('fs'),
+	url = require('url'),
+	routes = require('./routes'),
+	app = express(),
+    server = http.createServer(app),
+    io = require('socket.io').listen(server);
 
-	})
+var CONFIG = require('./config.json');
 
-	.filter('numberFixedLen', function () {
-        return function (n, len) {
-            var num = parseInt(n, 10);
-            len = parseInt(len, 10);
-            if (isNaN(num) || isNaN(len)) {
-                return n;
-            }
-            num = ''+num;
-            while (num.length < len) {
-                num = '0'+num;
-            }
-            return num;
-        };
-    })
+app.set('port', process.env.PORT || CONFIG.port);
+app.set('views', __dirname + '/views');
+app.use(express.logger('dev'));
+app.use(express.bodyParser());
+app.use(express.methodOverride());
+app.use(express.static(__dirname + '/public'));
+app.use(app.router);
 
-	.config(function($routeProvider) {
-		'use strict';
-		$routeProvider
-		.when('/', {
-			templateUrl: 'views/media.html',
-			controller: 'mediaCtrl',
-		})
+if (app.get('env') === 'development') {
+	app.use(express.errorHandler());
+}
 
-		.when('/nzbdrone', {
-			templateUrl: 'views/nzbdrone.html',
-			controller: 'nzbdroneCtrl',
-		})
-		.when('/couchpotato', {
-			templateUrl: 'views/couchpotato.html',
-			controller: 'couchpotatoCtrl',
-		})
-		.when('/sabnzbd', {
-			templateUrl: 'views/sabnzbd.html',
-			controller: 'sabnzbdCtrl',
-		})
-		.otherwise({
-			redirectTo: '/'
-		});
-	});
+// app.use('/', express.static(__dirname  + '/public/app'));
+
+app.get('/', routes.index);
+
+app.get('*', routes.index); // Redirect rest to /
+
+// app.use('/nzbget', require('./controllers/nzbget'))(CONFIG.nzbget);
+// app.use('/sonarr', require('./sonarr'));
+// app.use('/couchpotato', require('./controllers/couchpotato'))(CONFIG.couchpotato);
+// app.use('/kodi', require('./kodi'));
+
+// io.sockets.on('connection', require('./routes/nzbget'));
+// io.sockets.on('connection', require('./routes/couchpotato'));
+// io.sockets.on('connection', require('./routes/sonarr'));
+// io.sockets.on('connection', require('./routes/kodi'));
+
+server.listen(app.get('port'), function () {
+	console.log('Express server listening on port ' + app.get('port'));
+});

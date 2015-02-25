@@ -1,0 +1,20 @@
+{
+	"port": "8888",
+
+	"couchpotato": {
+		"url": "URL",
+		"apikey": "API",
+		"list": {
+			"status": "active"
+		}
+	},
+	"nzbget": {
+		"url": "URL",
+		"username": "USERNAME",
+		"password": "PASSWORD"
+	},
+	"sonarr": {
+		"url": "URL",
+		"apikey": "API"
+	}
+}
