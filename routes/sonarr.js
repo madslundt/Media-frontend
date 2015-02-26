@@ -23,7 +23,7 @@
 // }();
 
 module.exports = function (socket) {
-    var sonarr = require('../node-sonarr');
+    var sonarr = require('../node_modules/node-sonarr');
     var config      = require('../config').sonarr;
     var sn = new sonarr({
         url: config.url,

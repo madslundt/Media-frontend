@@ -32,9 +32,9 @@ app.get('*', routes.index); // Redirect rest to /
 // app.use('/couchpotato', require('./controllers/couchpotato'))(CONFIG.couchpotato);
 // app.use('/kodi', require('./kodi'));
 
-// io.sockets.on('connection', require('./routes/nzbget'));
-// io.sockets.on('connection', require('./routes/couchpotato'));
-// io.sockets.on('connection', require('./routes/sonarr'));
+io.sockets.on('connection', require('./routes/nzbget'));
+io.sockets.on('connection', require('./routes/couchpotato'));
+io.sockets.on('connection', require('./routes/sonarr'));
 // io.sockets.on('connection', require('./routes/kodi'));
 
 server.listen(app.get('port'), function () {

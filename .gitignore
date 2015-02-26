@@ -3,3 +3,5 @@ config.js
 config.json
 .htaccess
 .htpasswd
+node_modules/
+node_modules/*

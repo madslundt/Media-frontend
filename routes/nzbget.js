@@ -23,8 +23,8 @@
 // }();
 
 module.exports = function (socket) {
-    var nzbget = require('../node-nzbget');
-    var config      = require('../config').couchpotato;
+    var nzbget = require('../node_modules/node-nzbget');
+    var config      = require('../config').nzbget;
     var ng = new nzbget({
         url: config.url,
         username: config.username,

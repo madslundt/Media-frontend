@@ -32,7 +32,7 @@
 // }();
 
 module.exports = function (socket) {
-    var couchpotato = require('../node-couchpotato');
+    var couchpotato = require('../node_modules/node-couchpotato');
     var config      = require('../config').couchpotato;
     var cp = new couchpotato({
         url: config.url,
