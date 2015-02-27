@@ -17,3 +17,5 @@ For now you need to do a bit work to get it working. When the application gets m
 * When the `npm install` has completed, you're ready to startup the application by running the command `node app.js` in the same folder as npm install.
 
 Right now there is not an automatic updater implemented in the application. For now you will have to update it manually by downloading the application from Github again and overwriting. However, if you used `git clone` you can simply use `git update`. Remember to stop the application from running when updating by pressing `CTRL + C`. After the update is done you can start the application again `node app.js`
+
+[Current backlog](https://trello.com/b/jdk2EpAf/media-frontend)
