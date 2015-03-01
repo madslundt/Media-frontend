@@ -5,20 +5,19 @@
 	<i class="icon-download-alt">{{ media.data.upcoming.length }}</i>
 </div>
 
-<div class="btn-group-vertical btn-group-justified " data-toggle="buttons" ng-init="tv_media = media.data.history; upcoming=0;">
-	<label class="btn btn-default active" ng-click="tv_media = media.data.history; upcoming=0;">
-		<input type="radio"> History
+<div class="btn-group-vertical btn-group-justified " data-toggle="buttons" ng-init="tv_media = media.data.upcoming; history=0;">
+	<label class="btn btn-default active" ng-click="tv_media = media.data.upcoming; history=0;">
+		<input type="radio"> Upcoming
 	</label>
 
-	<label class="btn btn-default" ng-click="tv_media = media.data.upcoming; upcoming=1;">
-		<input type="radio"> Upcoming
+	<label class="btn btn-default" ng-click="tv_media = media.data.history; history=1;">
+		<input type="radio"> History
 	</label>
 </div>
 <div ng-if="media.data" class="media-info list-group">
-	<a href="#" class="list-group-item" ng-repeat="tv in (tv_media ? tv_media : media.data.history)" ng-if="human_time_from(tv.airDateUtc) && tv.eventType != 'grabbed'">
+	<a href="#" class="list-group-item" ng-repeat="tv in (tv_media ? tv_media : media.data.upcoming)" ng-if="human_time_from(tv.airDateUtc) && tv.eventType != 'grabbed'">
 		<p class="media-info-title" title="{{ tv.sourceTitle }}">{{ tv.series.title }}</p>
-		<span class="label label-year pull-right" ng-if="upcoming">{{ human_time_from(tv.airDateUtc) }}</span>
-		<span class="label label-year pull-right" ng-if="!upcoming">{{ human_time_from(tv.date, 1) }}</span>
+		<span class="label label-year pull-right">{{ history ? human_time_from(tv.date, 1) : human_time_from(tv.airDateUtc) }}</span>
 		<p class="media-info-subtitle" title="{{ tv.episode.title }}">{{ tv.title ? tv.title : tv.episode.title }}</p>
 		<div class="pull-right">
 			S{{ (tv.seasonNumber ? tv.seasonNumber : tv.episode.seasonNumber) | numberFixedLen:2 }}E{{ (tv.episodeNumber ? tv.episodeNumber : tv.episode.episodeNumber) | numberFixedLen:2 }}

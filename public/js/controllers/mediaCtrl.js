@@ -62,7 +62,7 @@ angular.module('mediaApp')
         });
 
         /*==========  NZBGET  ==========*/
-        var nzbget_timer_delay = /*CONFIG.nzbget.refresh_idle*/ 2 * 1000;
+        var nzbget_timer_delay = /*CONFIG.nzbget.refresh_idle*/ 2000;
         var nzbget_timer;
         
         function update_nzbget() {
@@ -107,21 +107,9 @@ angular.module('mediaApp')
         }
         update_nzbget();
 
-        socket.on('GET:sonarr.calendar', function (data) {
-            // console.log(data);
-        });
         socket.on('GET:sonarr.history', function (data) {
             $scope.medias.sonarr.data.history = data.records;
         });
-
-        // /*==========  SONARR  ==========*/
-        // sonarr_api.history().success(function (data) {
-        //     $scope.medias.sonarr.data.history = data.records;
-        //     $scope.medias.sonarr.status = true;
-        // }).error(function () {
-        //     console.error("sonarr history offline");
-        //     $scope.medias.sonarr.status = false;
-        // });
 
         function human_time_from(date, to) {
             to = to ? to : false;
