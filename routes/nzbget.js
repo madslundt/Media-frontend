@@ -36,7 +36,7 @@ module.exports = function (socket) {
     });
 
     ng.listgroups().then(function(data, err) {
-        socket.emit('GET:nzbget.listfiles', data);
+        socket.emit('GET:nzbget.listgroups', data);
     });
 
     ng.status().then(function(data, err) {

@@ -52,8 +52,7 @@ angular.module('mediaApp')
         var nzbget_timer;
         
         function update_nzbget() {
-            socket.on('GET:nzbget.listfiles', function (data) {
-                // console.log(data);
+            socket.on('GET:nzbget.listgroups', function (data) {
                 if (data) {
                     if (data.queue && data.queue.slots && data.queue.slots.length > 0 && nzbget_timer_delay != CONFIG.nzbget.refresh) {
                         if (angular.isDefined(nzbget_timer)) {
@@ -98,7 +97,7 @@ angular.module('mediaApp')
             // console.log(data);
         });
         socket.on('GET:sonarr.history', function (data) {
-            // console.log(data);
+            $scope.medias.sonarr.data.history = data.records;
         });
 
         // /*==========  SONARR  ==========*/
@@ -110,7 +109,8 @@ angular.module('mediaApp')
         //     $scope.medias.sonarr.status = false;
         // });
 
-        function human_time_from(date) {
+        function human_time_from(date, to) {
+            to = to ? to : false;
             date = new Date(date);
             // The number of milliseconds in one day
             var ONE_DAY = 1000 * 60 * 60 * 24;
@@ -122,7 +122,11 @@ angular.module('mediaApp')
 
             var difference_ms = date_ms - today;
 
-            if (difference_ms <= 0) {
+            if (to) {
+                difference_ms = Math.abs(difference_ms);
+            }
+
+            if (!to && difference_ms <= 0) {
                 return false;
             }
 
@@ -131,7 +135,12 @@ angular.module('mediaApp')
                var hours = Math.round(difference_ms/ONE_HOUR);
                return hours + (hours > 1 ? ' hours' : ' hour');
             } else {
-                return days + (days > 1 ? ' days' : ' day');
+                if (days === 1 && to) {
+                    return 'Yesterday';
+                } else if (days === 1) {
+                    return 'Tomorrow';
+                }
+                return days + (days > 1 ? ' days' : ' day') + (to ? ' ago' : '');
             }
 
         }
@@ -140,7 +149,6 @@ angular.module('mediaApp')
 
         socket.on('GET:sonarr.calendar', function (data) {
             if (data) {
-                console.log(human_time_from(data[0].airDateUtc));
                 $scope.medias.sonarr.data.upcoming = data;
                 $scope.medias.sonarr.online = true;
             } else {

@@ -27,7 +27,7 @@ module.exports = function (socket) {
     var config      = require('../config').sonarr;
     var sn = new sonarr({
         url: config.url,
-        apikey: config.apikey
+        apikey: '1b8429d81f274d74ba20d70211429701'
     });
 
     sn.status().then(function(data, err) {
