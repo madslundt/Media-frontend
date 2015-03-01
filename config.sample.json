@@ -3,10 +3,7 @@
 
 	"couchpotato": {
 		"url": "URL",
-		"apikey": "API",
-		"list": {
-			"status": "active"
-		}
+		"apikey": "API"
 	},
 	"nzbget": {
 		"url": "URL",

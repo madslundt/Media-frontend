@@ -33,10 +33,24 @@ angular.module('mediaApp')
         };
 
         /*==========  COUCHPOTATO  ==========*/
-        socket.on('GET:movies', function (data) {
+        socket.on('GET:couchpotato.available.movies', function (data) {
+            if (data) {
+                console.log(data);
+                $scope.medias.couchpotato.online = true;
+                $scope.medias.couchpotato.data.available = data;
+            } else {
+                console.error("Couchpotato offline");
+                $scope.medias.couchpotato.online = false;
+            }
+        }, function(err) {
+            console.error("Couchpotato offline");
+            $scope.medias.couchpotato.online = false;
+        });
+
+        socket.on('GET:couchpotato.active.movies', function (data) {
             if (data) {
                 $scope.medias.couchpotato.online = true;
-                $scope.medias.couchpotato.data = data;
+                $scope.medias.couchpotato.data.active = data;
             } else {
                 console.error("Couchpotato offline");
                 $scope.medias.couchpotato.online = false;
@@ -133,14 +147,14 @@ angular.module('mediaApp')
             var days = Math.round(difference_ms/ONE_DAY);
             if (days < 1) {
                var hours = Math.round(difference_ms/ONE_HOUR);
-               return hours + (hours > 1 ? ' hours' : ' hour');
+               return 'In ' + hours + (hours > 1 ? ' hours' : ' hour');
             } else {
                 if (days === 1 && to) {
                     return 'Yesterday';
                 } else if (days === 1) {
                     return 'Tomorrow';
                 }
-                return days + (days > 1 ? ' days' : ' day') + (to ? ' ago' : '');
+                return (!to ? 'In ' : '') + days + (days > 1 ? ' days' : ' day') + (to ? ' ago' : '');
             }
 
         }

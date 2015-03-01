@@ -28,9 +28,9 @@ angular.module('mediaApp', ['ngRoute', 'ngResource', 'btford.socket-io'])
 			controller: 'mediaCtrl',
 		})
 
-		.when('/nzbdrone', {
-			templateUrl: 'views/nzbdrone.html',
-			controller: 'nzbdroneCtrl',
+		.when('/sonarr', {
+			templateUrl: 'views/sonarr.html',
+			controller: 'sonarrCtrl',
 		})
 		.when('/couchpotato', {
 			templateUrl: 'views/couchpotato.html',

@@ -40,7 +40,10 @@ module.exports = function (socket) {
         debug: true
     });
 
-    cp.movie.list(config.list).then(function(data, err) {
-        socket.emit('GET:movies', data);
+    cp.movie.list({"status": "done", "release_status": "available"}).then(function(data, err) {
+        socket.emit('GET:couchpotato.available.movies', data);
+    });
+    cp.movie.list({"status": "active"}).then(function(data, err) {
+        socket.emit('GET:couchpotato.active.movies', data);
     });
 };

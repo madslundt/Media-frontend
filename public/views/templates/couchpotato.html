@@ -2,13 +2,23 @@
 <a href="#/{{ media.title.toLowerCase() }}"><img ng-src="{{media.background}}" alt="{{media.title}}" title="{{media.title}}" /></a>
 <hr>
 <div class="control-options">
-	<i class="icon-download-alt">{{ media.data.movies.length }}</i>
+	<i class="icon-download-alt">{{ media.data.available.total }}</i>
+</div>
+
+<div class="btn-group-vertical btn-group-justified " data-toggle="buttons" ng-init="movie_media = media.data.available.movies">
+	<label class="btn btn-default active" ng-click="movie_media = media.data.available.movies">
+		<input type="radio"> Available
+	</label>
+
+	<label class="btn btn-default" ng-click="movie_media = media.data.active.movies">
+		<input type="radio"> Wanted
+	</label>
 </div>
 
 <div ng-if="media.data" class="media-info list-group">
-	<a href="#" class="list-group-item" ng-repeat="movie in media.data.movies">
+	<a href="#" class="list-group-item" ng-repeat="movie in (movie_media || media.data.available.movies)">
 		<p class="media-info-title" title="{{ movie.info.original_title }}">{{ movie.info.original_title }}</p>
-		<span class="label label-year pull-right">{{ movie.info.year }}</span>
+		<span class="label label-year pull-right">{{ movie.info.released }}</span>
 		<p class="media-info-subtitle">{{ movie.releases.length + (movie.releases.length == 1 ? ' release' : ' releases') }} </p>
 		<div class="pull-right">
 			<i class="icon-star-empty">{{ movie.info.rating.imdb[0] }}</i>
