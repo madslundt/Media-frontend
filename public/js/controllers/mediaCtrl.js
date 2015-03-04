@@ -35,7 +35,6 @@ angular.module('mediaApp')
         /*==========  COUCHPOTATO  ==========*/
         socket.on('GET:couchpotato.available.movies', function (data) {
             if (data) {
-                console.log(data);
                 $scope.medias.couchpotato.online = true;
                 $scope.medias.couchpotato.data.available = data;
             } else {

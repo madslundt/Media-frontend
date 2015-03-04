@@ -1,19 +1,25 @@
-var express = require('express'),
-	http = require('http'),
-	fs = require('fs'),
-	url = require('url'),
-	routes = require('./routes'),
-	app = express(),
-    server = http.createServer(app),
-    io = require('socket.io').listen(server);
+var express        = require('express'),
+	http           = require('http'),
+	fs             = require('fs'),
+	url            = require('url'),
+	routes         = require('./routes'),
+	app            = express(),
+    server         = http.createServer(app),
+    io             = require('socket.io').listen(server),
+    cookieParser   = require('cookie-parser'),
+    bodyParser     = require('body-parser'),
+    cookieSession  = require('cookie-session');
 
 var CONFIG = require('./config.json');
 
 app.set('port', process.env.PORT || CONFIG.port);
 app.set('views', __dirname + '/views');
 app.use(express.logger('dev'));
-app.use(express.bodyParser());
-app.use(express.methodOverride());
+app.use(cookieParser());
+app.use(bodyParser());
+app.use(cookieSession({secret: 'app_1'}));
+// app.use(express.bodyParser());
+// app.use(express.methodOverride());
 app.use(express.static(__dirname + '/public'));
 app.use(app.router);
 
@@ -36,6 +42,8 @@ io.sockets.on('connection', require('./routes/nzbget'));
 io.sockets.on('connection', require('./routes/couchpotato'));
 io.sockets.on('connection', require('./routes/sonarr'));
 // io.sockets.on('connection', require('./routes/kodi'));
+
+io.sockets.on('connection', require('./routes/movie'));
 
 server.listen(app.get('port'), function () {
 	console.log('Express server listening on port ' + app.get('port'));

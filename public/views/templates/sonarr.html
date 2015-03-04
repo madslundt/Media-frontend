@@ -15,8 +15,8 @@
 	</label>
 </div>
 <div ng-if="media.data" class="media-info list-group">
-	<a href="#" class="list-group-item" ng-repeat="tv in (tv_media ? tv_media : media.data.upcoming)" ng-if="human_time_from(tv.airDateUtc) && tv.eventType != 'grabbed'">
-		<p class="media-info-title" title="{{ tv.sourceTitle }}">{{ tv.series.title }}</p>
+	<a href="#" class="list-group-item" ng-repeat="tv in (tv_media || media.data.upcoming)" ng-if="human_time_from(tv.airDateUtc) && tv.eventType != 'grabbed' && tv.eventType != 'episodeFileDeleted'">
+        <p class="media-info-title" title="{{ tv.sourceTitle }}">{{ tv.series.title }}</p> <span ng-if="tv.quality.revision.version > 1" class="versioning">v{{ tv.quality.revision.version }}</span>
 		<span class="label label-year pull-right">{{ history ? human_time_from(tv.date, 1) : human_time_from(tv.airDateUtc) }}</span>
 		<p class="media-info-subtitle" title="{{ tv.episode.title }}">{{ tv.title ? tv.title : tv.episode.title }}</p>
 		<div class="pull-right">

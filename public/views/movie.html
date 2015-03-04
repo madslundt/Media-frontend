@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col-md-3 col-sm-5 col-xs-12">
+        <div class="poster" style="background-image: url('{{ movie.Poster }}')">
+            <div class="hover-overlay"></div>
+        </div>
+        <button class="btn btn-danger btn-block">Play on Kodi</button>
+        <button class="btn btn-info btn-block">Do something</button>
+    </div>
+    <div class="col-md-9 col-sm-7 col-xs-12">
+        <div class="row">
+            <div class="col-xs-10">
+                <h2>{{ movie.Title }}</h2>
+            </div>
+            <div class="col-xs-2">
+                <div class="label label-default">{{ movie.Year }}</div>
+            </div>
+            <div class="col-xs-10">
+                <p class="lead">{{ movie.Genre }}</p>
+            </div>
+            <div class="col-xs-2">
+                <span class="rating">{{ movie.imdbRating }}</span>
+            </div>
+            <div class="col-xs-12">
+                <p class="plot">{{ movie.Plot }}</p>
+            </div>
+        </div>
+        <p>{{ movie.Awards }}</p>
+        <p>{{ movie.Actors }}</p>
+    </div>
+</div>

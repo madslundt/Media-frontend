@@ -50,6 +50,40 @@ hr {
 @color_on:  #a1cb2f;
 @color_neu: #ddd;
 
+.top-images {
+	overflow-x: auto;
+	width: auto;
+	margin: 0;
+	padding: 0;
+	white-space: nowrap;
+	width: 100%;
+	overflow-x: auto;
+	background-color: #222;
+	&:hover {
+		li {
+			opacity: .5;
+		}
+	}
+	a {
+		display: block;
+	}
+	li {
+		-webkit-transition: opacity .2s;
+		-moz-transition: opacity .2s;
+    	transition: opacity .2s;
+		display: inline-block;
+		width: 154px;
+		text-align: center;
+		&:hover {
+			opacity: 1;
+		}
+	}
+	img {
+		max-width: 200px;
+		max-height: 300px;
+	}
+}
+
 .medias {
 	margin: 10px auto;
 	h3, h3:visited, h3:hover, h3:active {
@@ -193,6 +227,12 @@ hr {
 			overflow: hidden;
 		}
 	}
+
+    .versioning {
+        font-size: 10px;
+        color: #888;
+        position: absolute;
+    }
 }
 
 .media-info {
@@ -225,10 +265,8 @@ hr {
 	color: #aaa;
 }
 
-
-h1 {
-	text-align: center;
-	border-bottom: 1px solid #aaa;
+h2 {
+    margin: 0;
 }
 
 
@@ -246,6 +284,45 @@ footer {
 	min-height: 40px;
 	padding: 0 20px;
 }
+
+
+/* ==========================================================================
+   Movie and TV info
+   ========================================================================== */
+.rating {
+    padding: 5px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+}
+
+.poster {
+    max-width: 100%;
+    width: 290px;
+    height: 410px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 5px;
+    
+    .hover-overlay {
+        background-color: #000;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        -webkit-transition: opacity .2s;
+        -moz-transition: opacity .2s;
+        transition: opacity .2s;
+    }
+
+    &:hover, &:active {
+        .hover-overlay {
+            opacity: .5;
+        }
+    }
+}
+
+
 
 
 

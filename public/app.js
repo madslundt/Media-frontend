@@ -20,27 +20,53 @@ angular.module('mediaApp', ['ngRoute', 'ngResource', 'btford.socket-io'])
         };
     })
 
-	.config(function($routeProvider) {
+	.config(function($routeProvider, $locationProvider) {
 		'use strict';
 		$routeProvider
 		.when('/', {
 			templateUrl: 'views/media.html',
-			controller: 'mediaCtrl',
+			controller: 'mediaCtrl'
 		})
 
 		.when('/sonarr', {
 			templateUrl: 'views/sonarr.html',
-			controller: 'sonarrCtrl',
+			controller: 'sonarrCtrl'
 		})
 		.when('/couchpotato', {
 			templateUrl: 'views/couchpotato.html',
-			controller: 'couchpotatoCtrl',
+			controller: 'couchpotatoCtrl'
 		})
 		.when('/nzbget', {
 			templateUrl: 'views/nzbget.html',
-			controller: 'nzbgetCtrl',
+			controller: 'nzbgetCtrl'
+		})
+        .when('/find/:id', {
+            template: '',
+            controller: function (socket, $routeParams, $location) {
+                var id = $routeParams.id;
+                socket.emit('GET:movie', id);
+
+                socket.on('GET:movie', function (data) {
+                    var path = '/';
+                    if (data.Type == 'movie') {
+                        path = '/movie/' + id;
+                    } else if (data.Type == 'series') {
+                        path = '/tv/' + id;
+                    }
+                    $location.path(path);
+                });
+            }
+        })
+		.when('/movie/:id', {
+			templateUrl: 'views/movie.html',
+			controller: 'movieCtrl'
+		})
+		.when('/tv/:id', {
+			templateUrl: 'views/tv.html',
+			controller: 'tvCtrl'
 		})
 		.otherwise({
 			redirectTo: '/'
 		});
+		// $locationProvider.html5Mode(true);
 	});

@@ -1,3 +1,17 @@
+<div class="row" ng-if="medias.couchpotato.data">
+	<ul class="col-xs-12 list-unstyled top-images">
+		<li ng-repeat="media in medias.couchpotato.data.available.movies">
+			<a href="#/movie/{{ media.info.imdb }}" title="{{ media.info.original_title }}">
+				<img ng-src="{{ media.info.images.poster[0] }}" alt="{{ media.info.original_title }}" />
+			</a>
+		</li>
+		<li ng-repeat="media in medias.couchpotato.data.active.movies" ng-if="!media.info.images.poster[0].contains('None')">
+			<a href="#/movie/{{ media.info.imdb }}" title="{{ media.info.original_title }}">
+				<img ng-src="{{ media.info.images.poster[0] }}" alt="{{ media.info.original_title }}" />
+			</a>
+		</li>
+	</ul>
+</div>
 <ul class="row list-unstyled medias">
 	<li class="col-xs-12 col-sm-6 col-lg-4 media" ng-repeat="media in medias">
 		<div class="btn-media {{ media.online ? 'on' : 'off' }}" ng-include="media.template"></div>
