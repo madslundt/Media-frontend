@@ -1,5 +1,5 @@
 angular.module('mediaApp')
-    .controller('mediaCtrl', function($scope, $interval, socket) {
+    .controller('mediaCtrl', function($scope, socket) {
         'use strict';
         $scope.medias = {
             'couchpotato': {
@@ -64,47 +64,32 @@ angular.module('mediaApp')
         var nzbget_timer_delay = /*CONFIG.nzbget.refresh_idle*/ 2000;
         var nzbget_timer;
         
-        function update_nzbget() {
-            socket.on('GET:nzbget.listgroups', function (data) {
-                if (data) {
-                    if (data.queue && data.queue.slots && data.queue.slots.length > 0 && nzbget_timer_delay != CONFIG.nzbget.refresh) {
-                        if (angular.isDefined(nzbget_timer)) {
-                            $interval.cancel(nzbget_timer);
-                            nzbget_timer_delay = CONFIG.nzbget.refresh * 1000;
-                            nzbget_timer = $interval(update_nzbget, nzbget_timer_delay);
-                        }
-                    } else if (nzbget_timer_delay != 10000/*CONFIG.nzbget.refresh_idle*/) {
-                        if (angular.isDefined(nzbget_timer)) {
-                            $interval.cancel(nzbget_timer);
-                            nzbget_timer_delay = CONFIG.nzbget.refresh_idle * 1000;
-                            nzbget_timer = $interval(update_nzbget, nzbget_timer_delay);
-                        }
-                    }
-                    $scope.medias.nzbget.data.results = data.result;
-                    $scope.medias.nzbget.status = true;
-                } else {
-                    $scope.medias.nzbget.online = false;
-                }
-            });
-            socket.on('GET:nzbget.status', function (data) {
-                if (data) {
-                    $scope.medias.nzbget.data.status = data.result;
-                } else {
-                    $scope.medias.nzbget.online = false;
-                }
-            });
-            socket.on('GET:nzbget.history', function (data) {
-                if (data) {
-                    // console.log(data);
-                    $scope.medias.nzbget.data.history = data.result;
-                    $scope.medias.nzbget.online = true;
-                } else {
-                    console.error('NzbGet offline');
-                    $scope.medias.nzbget.online = false;
-                }
-            });
-        }
-        update_nzbget();
+        socket.on('GET:nzbget.listgroups', function (data) {
+            console.log('hehe');
+            if (data) {
+                $scope.medias.nzbget.data.results = data.result;
+                $scope.medias.nzbget.status = true;
+            } else {
+                $scope.medias.nzbget.online = false;
+            }
+        });
+        socket.on('GET:nzbget.status', function (data) {
+            if (data) {
+                $scope.medias.nzbget.data.status = data.result;
+            } else {
+                $scope.medias.nzbget.online = false;
+            }
+        });
+        socket.on('GET:nzbget.history', function (data) {
+            if (data) {
+                // console.log(data);
+                $scope.medias.nzbget.data.history = data.result;
+                $scope.medias.nzbget.online = true;
+            } else {
+                console.error('NzbGet offline');
+                $scope.medias.nzbget.online = false;
+            }
+        });
 
         socket.on('GET:sonarr.history', function (data) {
             $scope.medias.sonarr.data.history = data.records;

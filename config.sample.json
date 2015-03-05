@@ -1,17 +1,29 @@
 {
-	"port": "8888",
+    "port": "8888",
 
-	"couchpotato": {
-		"url": "URL",
-		"apikey": "API"
-	},
-	"nzbget": {
-		"url": "URL",
-		"username": "USERNAME",
-		"password": "PASSWORD"
-	},
-	"sonarr": {
-		"url": "URL",
-		"apikey": "API"
-	}
+    "couchpotato": {
+        "url": "URL",
+        "apikey": "API",
+        "refresh": {
+            "idle": 10000,
+            "on": 4000
+        }
+    },
+    "nzbget": {
+        "url": "URL",
+        "username": "USERNAME",
+        "password": "PASSWORD",
+        "refresh": {
+            "idle": 10000,
+            "on": 4000
+        }
+    },
+    "sonarr": {
+        "url": "URL",
+        "apikey": "API",
+        "refresh": {
+            "idle": 10000,
+            "on": 4000
+        }
+    }
 }

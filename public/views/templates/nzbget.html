@@ -4,7 +4,7 @@
 <hr>
 <div class="control-options">
 	<i class="icon-clock">{{ media.data.status.timeleft }}</i>
-	<i class="icon-gauge border-left">{{ (media.data.status.DownloadRate / 1000 / 1000) | number:1 }}</i>
+	<i class="icon-gauge border-left">{{ (media.data.status.DownloadRate / 1000 / 1000) | number:1 }} MB/s</i>
 	<i class="icon-download-alt border-left ">{{ media.data.status.RemainingSizeMB }} MB</i>
 	<i title="{{ media.data.status.have_warnings + (media.data.status.have_warnings < 2 ? ' warning' : ' warnings') }}" ng-show="media.data.status.have_warnings" class="pull-right warning icon-attention-alt"></i>
 </div>
