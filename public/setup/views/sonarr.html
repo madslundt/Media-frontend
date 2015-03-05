@@ -1,0 +1,14 @@
+<div class="checkbox">
+	<input type="checkbox" value="1" id="activateSonarr" ng-model="media.sonarr.active" />
+	<label for="activateSonarr"></label>
+</div>
+<div ng-if="media.sonarr.active">
+    Next thing I need is your Sonarr informations.
+    <div class="info">
+        <label for="urlSonarr">Url:port</label>
+        <input class="form-control" type="text" id="urlSonarr" Placeholder="Default localhost:8989" ng-model="media.sonarr.url" />
+
+        <label for="apiSonarr">Api key</label>
+        <input class="form-control" type="text" id="apiSonarr" Placeholder="" ng-model="media.sonarr.apikey" />
+    </div>
+</div>

@@ -1,5 +1,4 @@
-angular.module('mediaApp')
-	.controller('sonarrCtrl', function($scope) {
-		'use strict';
+mediaApp.controller('sonarrCtrl', function($scope) {
+	'use strict';
 
-	});
+});

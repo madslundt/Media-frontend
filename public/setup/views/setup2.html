@@ -1,0 +1,6 @@
+<h2>Your media</h2>
+<p>For me to work with your media, you first need to give some informations.</p>
+<form class="" ng-submit="nextStep($event)">
+    <div ng-include="mediaTemplate"></div>
+    <button type="submit" class="btn pull-right" ng-class="{'btn-success btn-block':mediaFinished, 'btn-primary':!mediaFinished}" ng-disabled="setupIndex!=1">{{ mediaFinished ? 'This was easy. Keep going!' : 'Alright! Next media'}}</button>
+</form>

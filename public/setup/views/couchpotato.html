@@ -1,0 +1,15 @@
+<div class="checkbox">
+	<input type="checkbox" value="1" id="activateCouchpotato" ng-model="media.couchpotato.active" />
+	<label for="activateCouchpotato"></label>
+</div>
+
+<div ng-if="media.couchpotato.active">
+    For me to know what movies you want, I need your Couchpotato informations - Calm down, this is only 2 things.
+    <div class="info">
+        <label for="urlCouchpotato">Url:port</label>
+        <input class="form-control" type="text" id="urlCouchpotato" Placeholder="Default localhost:5050" ng-model="media.couchpotato.url" />
+
+        <label for="apiCouchpotato">Api key</label>
+        <input class="form-control" type="text" id="apiCouchpotato" Placeholder="" ng-model="media.couchpotato.apikey" />
+    </div>
+</div>

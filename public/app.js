@@ -1,72 +1,78 @@
-angular.module('mediaApp', ['ngRoute', 'ngResource', 'btford.socket-io'])
+var mediaApp = angular.module('mediaApp', ['ngRoute', 'ngResource', 'btford.socket-io']);
+mediaApp.run(function($rootScope, socket) {
+	'use strict';
+	$rootScope.$on('$locationChangeStart', function (event) {
+		socket.on('setConfigAvailable', function (res) {
+			if (res.editable) {
+				location.href = 'http://127.0.0.1:' + res.port + '/setup';
+			}
+		});
+	});
 	
-	.run(function($rootScope) {
-		'use strict';
+})
 
+.filter('numberFixedLen', function () {
+    return function (n, len) {
+        var num = parseInt(n, 10);
+        len = parseInt(len, 10);
+        if (isNaN(num) || isNaN(len)) {
+            return n;
+        }
+        num = ''+num;
+        while (num.length < len) {
+            num = '0'+num;
+        }
+        return num;
+    };
+})
+
+.config(function($routeProvider, $locationProvider) {
+	'use strict';
+	$routeProvider
+	.when('/', {
+		templateUrl: 'views/media.html',
+		controller: 'mediaCtrl'
 	})
 
-	.filter('numberFixedLen', function () {
-        return function (n, len) {
-            var num = parseInt(n, 10);
-            len = parseInt(len, 10);
-            if (isNaN(num) || isNaN(len)) {
-                return n;
-            }
-            num = ''+num;
-            while (num.length < len) {
-                num = '0'+num;
-            }
-            return num;
-        };
+	.when('/sonarr', {
+		templateUrl: 'views/sonarr.html',
+		controller: 'sonarrCtrl'
+	})
+	.when('/couchpotato', {
+		templateUrl: 'views/couchpotato.html',
+		controller: 'couchpotatoCtrl'
+	})
+	.when('/nzbget', {
+		templateUrl: 'views/nzbget.html',
+		controller: 'nzbgetCtrl'
+	})
+    .when('/find/:id', {
+        template: '',
+        controller: function (socket, $routeParams, $location) {
+            var id = $routeParams.id;
+            socket.emit('GET:movie', id);
+
+            socket.on('GET:movie', function (data) {
+                var path = '/';
+                if (data.Type == 'movie') {
+                    path = '/movie/' + id;
+                } else if (data.Type == 'series') {
+                    path = '/tv/' + id;
+                }
+                $location.path(path);
+            });
+        }
     })
-
-	.config(function($routeProvider, $locationProvider) {
-		'use strict';
-		$routeProvider
-		.when('/', {
-			templateUrl: 'views/media.html',
-			controller: 'mediaCtrl'
-		})
-
-		.when('/sonarr', {
-			templateUrl: 'views/sonarr.html',
-			controller: 'sonarrCtrl'
-		})
-		.when('/couchpotato', {
-			templateUrl: 'views/couchpotato.html',
-			controller: 'couchpotatoCtrl'
-		})
-		.when('/nzbget', {
-			templateUrl: 'views/nzbget.html',
-			controller: 'nzbgetCtrl'
-		})
-        .when('/find/:id', {
-            template: '',
-            controller: function (socket, $routeParams, $location) {
-                var id = $routeParams.id;
-                socket.emit('GET:movie', id);
-
-                socket.on('GET:movie', function (data) {
-                    var path = '/';
-                    if (data.Type == 'movie') {
-                        path = '/movie/' + id;
-                    } else if (data.Type == 'series') {
-                        path = '/tv/' + id;
-                    }
-                    $location.path(path);
-                });
-            }
-        })
-		.when('/movie/:id', {
-			templateUrl: 'views/movie.html',
-			controller: 'movieCtrl'
-		})
-		.when('/tv/:id', {
-			templateUrl: 'views/tv.html',
-			controller: 'tvCtrl'
-		})
-		.otherwise({
-			redirectTo: '/'
-		});
-		// $locationProvider.html5Mode(true);
+	.when('/movie/:id', {
+		templateUrl: 'views/movie.html',
+		controller: 'movieCtrl'
+	})
+	.when('/tv/:id', {
+		templateUrl: 'views/tv.html',
+		controller: 'tvCtrl'
+	})
+	.otherwise({
+		redirectTo: '/'
 	});
+	// $locationProvider.html5Mode(true);
+});

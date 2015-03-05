@@ -1,5 +1,3 @@
-angular.module('mediaApp')
-	.controller('couchpotatoCtrl', function($scope) {
-		'use strict';
-
-	});
+mediaApp.controller('couchpotatoCtrl', function($scope) {
+	'use strict';
+});

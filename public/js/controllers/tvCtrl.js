@@ -1,5 +1,4 @@
-angular.module('mediaApp')
-	.controller('tvCtrl', function($scope) {
-		'use strict';
+mediaApp.controller('tvCtrl', function($scope) {
+	'use strict';
 
-	});
+});
