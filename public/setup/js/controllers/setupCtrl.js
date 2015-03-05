@@ -18,12 +18,20 @@ mediaApp.controller('setupCtrl', function($scope, $timeout, socket) {
 	$scope.mediaTemplate = mediaTemplates[mediaTemplateIndex];
 
 	$scope.media = {
+        port: 8080,
 		couchpotato: { active: true },
 		sonarr: { active: true },
 		nzbget: { active: true }
 	};
 
+    $scope.overlayLoad = false;
+
 	$scope.nextStep = function ($event) {
+        if ($scope.setupIndex === 0) {
+            if (!$scope.media.port || $scope.media.port.length < 2) {
+                $scope.media.port = 8080;
+            }
+        }
 		if ($scope.setupIndex === 1) {
 			var curMedia = $scope.media[Object.keys($scope.media)[mediaTemplateIndex]];
 			if (curMedia.active && (!curMedia.url || !(curMedia.apikey || (curMedia.username && curMedia.password)))) {
@@ -55,6 +63,7 @@ mediaApp.controller('setupCtrl', function($scope, $timeout, socket) {
 	}
 
 	$scope.finishSetup = function () {
+        $scope.overlayLoad = true;
 		socket.emit('setConfig', $scope.media);
 		$timeout(function () {
 			socket.on('setConfigAvailable', function (res) {
@@ -62,6 +71,6 @@ mediaApp.controller('setupCtrl', function($scope, $timeout, socket) {
 					location.href = 'http://127.0.0.1:' + res.port;
 				}
 			});
-		}, 2000);
+		}, 1000);
 	}
 });

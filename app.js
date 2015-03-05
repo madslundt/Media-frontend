@@ -47,8 +47,8 @@ function startServer(haveConfig) {
         open('http://127.0.0.1:' + app.get('port') + '/setup');
         app.get('/setup', routes.index);
         io.sockets.on('connection', function (socket) {
-            var config_sample  = require('./config.sample');
-
+            var config_sample  = require('./config.sample.json');
+            console.log(config_sample);
             socket.on('setConfig', function (data) {
                 var newConfig = mergeJSON(config_sample, data);
                 fs.writeFile('./config.json', JSON.stringify(newConfig, null, 4), function (err) {
@@ -100,9 +100,43 @@ fs.exists('./config.json', function(exists) {
  * @param  {[type]} obj2 [description]
  * @return {[type]}      [description]
  */
-function mergeJSON(obj1,obj2) {
-    var obj3 = {};
-    for (var attrname in obj1) { obj3[attrname] = obj1[attrname]; }
-    for (var attrname in obj2) { obj3[attrname] = obj2[attrname]; }
-    return obj3;
+function mergeJSON(target, src) {
+    var array = Array.isArray(src);
+    var dst = array && [] || {};
+
+    if (array) {
+        target = target || [];
+        dst = dst.concat(target);
+        src.forEach(function(e, i) {
+            if (typeof dst[i] === 'undefined') {
+                dst[i] = e;
+            } else if (typeof e === 'object') {
+                dst[i] = mergeJSON(target[i], e);
+            } else {
+                if (target.indexOf(e) === -1) {
+                    dst.push(e);
+                }
+            }
+        });
+    } else {
+        if (target && typeof target === 'object') {
+            Object.keys(target).forEach(function (key) {
+                dst[key] = target[key];
+            })
+        }
+        Object.keys(src).forEach(function (key) {
+            if (typeof src[key] !== 'object' || !src[key]) {
+                dst[key] = src[key];
+            }
+            else {
+                if (!target[key]) {
+                    dst[key] = src[key];
+                } else {
+                    dst[key] = mergeJSON(target[key], src[key]);
+                }
+            }
+        });
+    }
+
+    return dst;
 }
