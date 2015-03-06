@@ -39,7 +39,6 @@ module.exports = function (socket) {
 
     function listgroups() {
         ng.listgroups().then(function(data, err) {
-            console.log(data);
             if (data.result.length > 1 && refresh_timer != config.refresh.on) {
                 clearInterval(listgroups_timer);
                 refresh_timer = config.refresh.on;
@@ -49,7 +48,6 @@ module.exports = function (socket) {
                 refresh_timer = config.refresh.idle;
                 listgroups_timer = setInterval(listgroups, refresh_timer);
             }
-            console.log('update');
             socket.emit('GET:nzbget.listgroups', data);
         });
     }

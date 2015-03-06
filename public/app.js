@@ -51,12 +51,11 @@ mediaApp.run(function($rootScope, socket) {
         controller: function (socket, $routeParams, $location) {
             var id = $routeParams.id;
             socket.emit('GET:movie', id);
-
             socket.on('GET:movie', function (data) {
                 var path = '/';
-                if (data.type == 'movie') {
+                if (data.Type == 'movie') {
                     path = '/movie/' + id;
-                } else if (data.type == 'series') {
+                } else if (data.Type == 'series') {
                     path = '/tv/' + id;
                 }
                 $location.path(path);

@@ -1,5 +1,6 @@
 @import "../bower_components/bootstrap/less/bootstrap.less";
 @import "fontello.css";
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,300,700);
 
 /* ==========================================================================
    Mixins
@@ -27,6 +28,17 @@
 
 .inline {
 	display: inline-block;
+}
+
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
+p {
+    font-family: 'Roboto', sans-serif;
+}
+h1, h2, h3, h4 {
+    font-family: 'Roboto', sans-serif;
 }
 
 a.block {
@@ -267,6 +279,22 @@ hr {
 
 h2 {
     margin: 0;
+}
+
+.logo {
+    background-image: url('../img/mediafrontend.png');
+    background-repeat: no-repeat;
+    background-position: center left;
+    height: 100%;
+    background-size: contain;
+    padding-left: 50px;
+    color: #333;
+    text-decoration: none;
+    display: block;
+    &:hover, &:active, &:visited {
+        color: inherit;
+        text-decoration: inherit;
+    }
 }
 
 .media-poster {
