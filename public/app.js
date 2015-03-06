@@ -1,4 +1,4 @@
-var mediaApp = angular.module('mediaApp', ['ngRoute', 'ngResource', 'btford.socket-io']);
+var mediaApp = angular.module('mediaApp', ['ngRoute', 'ngResource', 'btford.socket-io', 'afkl.lazyImage']);
 mediaApp.run(function($rootScope, socket) {
 	'use strict';
 	$rootScope.$on('$locationChangeStart', function (event) {
@@ -54,9 +54,9 @@ mediaApp.run(function($rootScope, socket) {
 
             socket.on('GET:movie', function (data) {
                 var path = '/';
-                if (data.Type == 'movie') {
+                if (data.type == 'movie') {
                     path = '/movie/' + id;
-                } else if (data.Type == 'series') {
+                } else if (data.type == 'series') {
                     path = '/tv/' + id;
                 }
                 $location.path(path);

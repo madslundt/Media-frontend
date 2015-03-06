@@ -16,7 +16,29 @@
 	</head>
 	<body ng-controller="mediaCtrl">
 		<div class="container-fluid">
-			<h1>Media Frontend</h1>
+            <div class="row">
+                <div class="col-md-4 col-sm-5 col-xs-12">
+                    <h1>Media Frontend</h1>
+                </div>
+                <div class="col-md-8 col-sm-7 col-xs-12">
+                    <form class="form-horizontal search-input" ng-submit="searchNow()">
+                        <div class="col-xs-10">
+                            <input class="form-control" placeholder="Search" ng-model="search.text" />
+                        </div>
+                        <button type="submit" class="btn btn-success col-xs-2">Search</button>
+                    </form>
+                </div>
+                <div ng-show="search.results" class="col-xs-12 search-box">
+                    <ul class="col-xs-12 list-unstyled top-images">
+                        <li ng-repeat="media in search.results">
+                            <a href="" ng-href="#/find/{{ media.imdb }}" title="{{ media.titles[0] }}">
+                                <img ng-src="{{ media.images.poster[0] }}" alt="{{ media.titles[0] }}" />
+                                <!-- <div class="media-poster" afkl-lazy-image="{{ media.images.poster[0] }}" afkl-lazy-image-options="{'background': true}">{{ media.titles[0] }}</div> -->
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
 			<div class="search-box row hidden">
 				<div class="col-sm-5 col-xs-12">
 					<input class="form-control" placeholder="Media search" />
@@ -47,6 +69,7 @@
 		<script src="bower_components/angular-route/angular-route.min.js"></script>
 		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 		<script src="bower_components/angular-socket-io/socket.min.js"></script>
+        <script src="bower_components/afkl-lazy-image/release/lazy-image.min.js"></script>
 		<script src="app.js"></script>
 		<script src="js/services/socket.js"></script>
 		<script src="js/controllers/mediaCtrl.js"></script>

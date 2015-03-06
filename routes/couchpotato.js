@@ -46,4 +46,11 @@ module.exports = function (socket) {
     cp.movie.list({"status": "active"}).then(function(data, err) {
         socket.emit('GET:couchpotato.active.movies', data);
     });
+
+    socket.on('GET:couchpotato.search', function (query) {
+        console.log("searching for: " + query);
+        cp.search(query).then(function (data, err) {
+            socket.emit('GET:couchpotato.search', data);
+        });
+    });
 };

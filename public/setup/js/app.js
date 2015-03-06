@@ -1,4 +1,4 @@
-var mediaApp = angular.module('mediaSetupApp', ['ngResource', 'btford.socket-io']);
+var mediaApp = angular.module('mediaSetupApp', ['ngResource', 'btford.socket-io', 'ngAnimate']);
 mediaApp.run(function($rootScope, socket) {
 	'use strict';
 	$rootScope.$on('$locationChangeStart', function (event) {

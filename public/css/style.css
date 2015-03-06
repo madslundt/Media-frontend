@@ -6408,8 +6408,16 @@ hr {
 h2 {
   margin: 0;
 }
+.media-poster {
+  text-indent: -9999px;
+  width: 200px;
+  height: 300px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
 .search-box {
   margin: 0 auto;
+  background-color: #666;
 }
 /* ==========================================================================
    Footer
@@ -6450,6 +6458,17 @@ footer {
 .poster:hover .hover-overlay,
 .poster:active .hover-overlay {
   opacity: .5;
+}
+/* ==========================================================================
+   Search
+   ========================================================================== */
+.search-input {
+  margin-bottom: 10px;
+}
+@media screen and (min-width: 768px) {
+  .search-input {
+    margin-top: 25px;
+  }
 }
 /*==================================
 =            Animations            =

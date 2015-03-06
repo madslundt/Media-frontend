@@ -3,5 +3,26 @@
 <form ng-submit="nextStep()">
     <label for="portGeneral">Port</label>
     <input class="form-control" type="text" id="portGeneral" Placeholder="Default 8080" ng-minlength="2" ng-model="media.port" />
+
+    <label style="margin-top: 10px;">Authentication</label>
+    <div class="checkbox">
+        <input type="checkbox" value="1" id="loginGeneral" ng-model="loginRequired" />
+        <label for="loginGeneral"></label>
+    </div>
+    <div ng-if="loginRequired">
+        <label for="usernameNzbdrone">Username</label>
+        <input class="form-control" type="text" id="usernameNzbdrone" Placeholder="" ng-model="media.username" />
+        <label for="passwordNzbdrone">Password</label>
+        <input class="form-control" type="password" id="passwordNzbdrone" Placeholder="" ng-model="media.password" />
+        <label for="authLevelGeneral">Authentication level</label>
+        <div class="" id="authLevelGeneral">
+            <div ng-repeat="level in authLevels">
+                <div class="radiobox">
+                    <input ng-click="media.auth_level = $index" type="radio" name="authLevel" class="radio" id="authLevel{{$index}}" value="{{ $index }}" ng-checked="$index === 0" />
+                    <label class="border" for="authLevel{{$index}}">{{ level }}</label>
+                </div>
+            </div>
+        </div>
+    </div>
     <button class="btn btn-default pull-right" type="submit" ng-disabled="setupIndex!=0">Let's start</button>
 </form>

@@ -5,6 +5,10 @@ mediaApp.controller('setupCtrl', function($scope, $timeout, socket) {
 		'views/setup2.html',
 		'views/setup3.html'
 	];
+    $scope.authLevels = [
+        'Only authenticate when editing',
+        'Always authenticate'
+    ];
 	var mediaTemplates = [
 		'views/couchpotato.html',
 		'views/sonarr.html',
@@ -13,36 +17,41 @@ mediaApp.controller('setupCtrl', function($scope, $timeout, socket) {
 	$scope.setupIndex = 0;
 	$scope.mediaFinished = false;
 	var startTime;
-	var mediaTemplateIndex = 0;
-
-	$scope.mediaTemplate = mediaTemplates[mediaTemplateIndex];
+	$scope.mediaTemplateIndex = 0;
+    $scope.loginRequired = false;
+	$scope.mediaTemplate = mediaTemplates[$scope.mediaTemplateIndex];
 
 	$scope.media = {
-        port: 8080,
 		couchpotato: { active: true },
 		sonarr: { active: true },
-		nzbget: { active: true }
+		nzbget: { active: true },
+        port: 8080,
+        auth_level: 0
 	};
 
     $scope.overlayLoad = false;
 
-	$scope.nextStep = function ($event) {
+	$scope.nextStep = function () {
         if ($scope.setupIndex === 0) {
             if (!$scope.media.port || $scope.media.port.length < 2) {
                 $scope.media.port = 8080;
             }
+
+            if ($scope.loginRequired && !($scope.media.username.length > 1 && $scope.media.password.length > 1)) {
+                return;
+            }
         }
 		if ($scope.setupIndex === 1) {
-			var curMedia = $scope.media[Object.keys($scope.media)[mediaTemplateIndex]];
+			var curMedia = $scope.media[Object.keys($scope.media)[$scope.mediaTemplateIndex]];
 			if (curMedia.active && (!curMedia.url || !(curMedia.apikey || (curMedia.username && curMedia.password)))) {
 				return;
 			}
 		}
 
 
-		if ($scope.setupIndex === 1 && mediaTemplateIndex < mediaTemplates.length - 1) {
-			$scope.mediaTemplate = mediaTemplates[++mediaTemplateIndex];
-			if (mediaTemplateIndex === mediaTemplates.length - 1) {
+		if ($scope.setupIndex === 1 && $scope.mediaTemplateIndex < mediaTemplates.length - 1) {
+			$scope.mediaTemplate = mediaTemplates[++$scope.mediaTemplateIndex];
+			if ($scope.mediaTemplateIndex === mediaTemplates.length - 1) {
 				$scope.mediaFinished = true;
 			}
 			return;
@@ -50,7 +59,7 @@ mediaApp.controller('setupCtrl', function($scope, $timeout, socket) {
 		if ($scope.setupIndex === 0) {
 			startTime = new Date();
 		} else {
-			var finishTime = Math.ceil(Math.abs(new Date().getTime() - startTime.getTime()))
+			var finishTime = Math.ceil(Math.abs(new Date().getTime() - startTime.getTime()));
 			if (finishTime <= 59000) { // Less than 1 minute
 				var sec = Math.ceil(finishTime / 1000);
 				$scope.finishTime = 'Less than ' + (sec == 1 ? 'a second' : sec + ' seconds');
@@ -60,7 +69,17 @@ mediaApp.controller('setupCtrl', function($scope, $timeout, socket) {
 			}
 		}
 		$scope.setupIndex++;
-	}
+	};
+
+    $scope.goToStep = function (step) {
+        $scope.setupIndex = step;
+    };
+
+    $scope.previousMediaTemplate = function() {
+        $scope.mediaFinished = false;
+        if ($scope.mediaTemplateIndex > 0)
+            $scope.mediaTemplate = mediaTemplates[--$scope.mediaTemplateIndex];
+    };
 
 	$scope.finishSetup = function () {
         $scope.overlayLoad = true;

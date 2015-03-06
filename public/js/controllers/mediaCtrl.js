@@ -64,7 +64,6 @@ mediaApp.controller('mediaCtrl', function($scope, socket) {
     var nzbget_timer;
     
     socket.on('GET:nzbget.listgroups', function (data) {
-        console.log('hehe');
         if (data) {
             $scope.medias.nzbget.data.results = data.result;
             $scope.medias.nzbget.status = true;
@@ -141,4 +140,29 @@ mediaApp.controller('mediaCtrl', function($scope, socket) {
             $scope.medias.sonarr.online = false;
         }
     });
+
+    $scope.search = {
+        text: '',
+        results: []
+    };
+
+    function getMedia(imdb) {
+        socket.emit('GET:movie', imdb);
+        return socket.on('GET:movie', function (data) {
+            return data;
+        });
+    }
+
+    $scope.searchNow = function () {
+        console.log('search');
+        socket.emit('GET:couchpotato.search', $scope.search.text);
+        socket.on('GET:couchpotato.search', function (data) {
+            console.log(data.length);
+            $scope.search.results = data;
+        });
+    };
+
+    $scope.getPoster = function (imdb) {
+        return getMedia(imdb);
+    };
 });

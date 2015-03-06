@@ -15,7 +15,7 @@
 	left: 15px;
 	bottom: 0px;
 	border-radius: 5px;
-	background-color: rgba(0,0,0,.8);
+	background-color: rgba(0,0,0,.5);
 }
 
 .finished {
@@ -31,13 +31,19 @@
 		background-position: center center;
 
 		width: 100%;
-		height: 150px;
+		height: 200px;
 		position: absolute;
 		left: 0;
 		right: 0;
-		top: 35%;
+		top: 30%;
 		background-size: contain;
+        opacity: .7;
 	}
+}
+
+h3 {
+    text-align: left !important;
+    border: none !important;
 }
 
 label {
@@ -137,4 +143,80 @@ input[type=checkbox] {
 
 .checkbox input[type=checkbox]:checked + label {
 	left: 68px;
+}
+
+.radiobox {
+    clear: both;
+    width: 100%;
+}
+
+label.border {
+  width: 200px;
+  border-radius: 5px;
+  border: 1px solid #D1D3D4;
+  color: #999;
+}
+
+/* hide input */
+input.radio:empty {
+    margin-left: -999px;
+    position: absolute;
+}
+
+/* style label */
+input.radio:empty ~ label {
+    position: relative;
+    display: block; 
+    line-height: 2.5em;
+    text-indent: 3.25em;
+    width: 100%;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+input.radio:empty ~ label:before {
+    position: absolute;
+    display: block;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    content: '';
+    width: 2.5em;
+    background: #D1D3D4;
+    border-radius: 3px 0 0 3px;
+}
+
+/* toggle hover */
+input.radio:hover:not(:checked) ~ label:before {
+    content:'\2714';
+    text-indent: .9em;
+    color: #C2C2C2;
+}
+
+input.radio:hover:not(:checked) ~ label {
+    color: #888;
+}
+
+/* toggle on */
+input.radio:checked ~ label:before {
+    content:'\2714';
+    text-indent: .9em;
+    color: #9CE2AE;
+    background-color: #4DCB6D;
+}
+
+input.radio:checked ~ label {
+    color: #000;
+}
+
+/* radio focus */
+input.radio:focus ~ label:before {
+    box-shadow: 0 0 0 3px #666;
+}
+
+.btn {
+    margin-bottom: 5px;
 }

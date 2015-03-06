@@ -1,4 +1,4 @@
-<div class="row" ng-if="medias.couchpotato.data">
+<div class="row" ng-if="medias.couchpotato.data.availaable.movies||medias.couchpotato.data.active.movies">
 	<ul class="col-xs-12 list-unstyled top-images">
 		<li ng-repeat="media in medias.couchpotato.data.available.movies">
 			<a href="#/movie/{{ media.info.imdb }}" title="{{ media.info.original_title }}">

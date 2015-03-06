@@ -48,7 +48,6 @@ function startServer(haveConfig) {
         app.get('/setup', routes.index);
         io.sockets.on('connection', function (socket) {
             var config_sample  = require('./config.sample.json');
-            console.log(config_sample);
             socket.on('setConfig', function (data) {
                 var newConfig = mergeJSON(config_sample, data);
                 fs.writeFile('./config.json', JSON.stringify(newConfig, null, 4), function (err) {

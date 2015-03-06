@@ -269,10 +269,18 @@ h2 {
     margin: 0;
 }
 
+.media-poster {
+    text-indent: -9999px;
+    width: 200px;
+    height: 300px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
 
 
 .search-box {
 	margin: 0 auto;
+    background-color: #666;
 }
 
 /* ==========================================================================
@@ -322,6 +330,16 @@ footer {
     }
 }
 
+
+/* ==========================================================================
+   Search
+   ========================================================================== */
+.search-input {
+    @media screen and (min-width: @screen-sm) {
+        margin-top: 25px;
+    }
+    margin-bottom: 10px;
+}
 
 
 
