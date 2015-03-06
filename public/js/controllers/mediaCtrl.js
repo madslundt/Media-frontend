@@ -31,11 +31,14 @@ mediaApp.controller('mediaCtrl', function($scope, socket) {
         }
     };
 
+    $scope.loading = true;
+
     /*==========  COUCHPOTATO  ==========*/
     socket.on('GET:couchpotato.available.movies', function (data) {
         if (data) {
             $scope.medias.couchpotato.online = true;
             $scope.medias.couchpotato.data.available = data;
+            $scope.loading = false;
         } else {
             console.error("Couchpotato offline");
             $scope.medias.couchpotato.online = false;
@@ -49,6 +52,7 @@ mediaApp.controller('mediaCtrl', function($scope, socket) {
         if (data) {
             $scope.medias.couchpotato.online = true;
             $scope.medias.couchpotato.data.active = data;
+            $scope.loading = false;
         } else {
             console.error("Couchpotato offline");
             $scope.medias.couchpotato.online = false;
@@ -67,6 +71,7 @@ mediaApp.controller('mediaCtrl', function($scope, socket) {
         if (data) {
             $scope.medias.nzbget.data.results = data.result;
             $scope.medias.nzbget.status = true;
+            $scope.loading = false;
         } else {
             $scope.medias.nzbget.online = false;
         }
@@ -74,6 +79,7 @@ mediaApp.controller('mediaCtrl', function($scope, socket) {
     socket.on('GET:nzbget.status', function (data) {
         if (data) {
             $scope.medias.nzbget.data.status = data.result;
+            $scope.loading = false;
         } else {
             $scope.medias.nzbget.online = false;
         }
@@ -81,6 +87,7 @@ mediaApp.controller('mediaCtrl', function($scope, socket) {
     socket.on('GET:nzbget.history', function (data) {
         if (data) {
             // console.log(data);
+            $scope.loading = false;
             $scope.medias.nzbget.data.history = data.result;
             $scope.medias.nzbget.online = true;
         } else {
@@ -135,6 +142,7 @@ mediaApp.controller('mediaCtrl', function($scope, socket) {
         if (data) {
             $scope.medias.sonarr.data.upcoming = data;
             $scope.medias.sonarr.online = true;
+            $scope.loading = false;
         } else {
             console.error("Sonarr calendar offline");
             $scope.medias.sonarr.online = false;
