@@ -12,10 +12,8 @@ For now you need to do a bit work to get it working. When the application gets m
 *  First you need to download this repository (git clone is preffered since you later can use git update).
 *  Open terminal or commando promt and change directory to the folder where you cloned/downloaded this repository into.
 *  Run the command `npm install`.
-*  In the mean while you can open `config.sample.json`, in your favorite text editor, and edit url, api keys, username, password etc. to the one that connects to your server.
-*  Save the file named `config.json`. Make sure not to overwrite the current `config.sample.json` (this will give some trouble for later when updating).
-* When the `npm install` has completed, you're ready to startup the application by running the command `node app.js` in the same folder as npm install.
+* When the `npm install` has completed, you're ready to startup the application by running the command `node app.js` in the same folder as npm install. This will guide you through the setup.
 
-Right now there is not an automatic updater implemented in the application. For now you will have to update it manually by downloading the application from Github again and overwriting. However, if you used `git clone` you can simply use `git update`. Remember to stop the application from running when updating by pressing `CTRL + C`. After the update is done you can start the application again `node app.js`
+Right now there is not an automatic updater implemented in the application. For now you will have to update it manually by downloading the application from Github again and overwriting. However, if you used `git clone` you can simply use `git update`. Remember to restart the application when updating.
 
 [Current backlog](https://trello.com/b/jdk2EpAf/media-frontend)
