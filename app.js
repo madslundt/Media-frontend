@@ -17,7 +17,11 @@ function startServer(haveConfig) {
     if (haveConfig)
         CONFIG = require('./config.json');
 
-    fs.watchFile('config.json', function (curr, prev) {
+    fs.watchFile('./config.json', function (curr, prev) {
+        if (curr.size <= 0) {
+            return;
+        }
+        console.log(curr);
         CONFIG = require('./config.json');
         haveConfig = true;
         io.close();
@@ -67,10 +71,6 @@ function startServer(haveConfig) {
 
         app.get('*', routes.index); // Redirect rest to /
 
-        // app.use('/nzbget', require('./controllers/nzbget'))(CONFIG.nzbget);
-        // app.use('/sonarr', require('./sonarr'));
-        // app.use('/couchpotato', require('./controllers/couchpotato'))(CONFIG.couchpotato);
-        // app.use('/kodi', require('./kodi'));
         if (CONFIG.nzbget.active)
             io.sockets.on('connection', require('./routes/nzbget'));
         if (CONFIG.couchpotato.active)

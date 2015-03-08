@@ -3,8 +3,14 @@ Media-frontend
 
 Web application for a quick overview for NzbGet, Sonarr, CouchPotato
 
+Early version
 ![](http://i.imgur.com/P3sbRFu.png)
-Old picture. New one incoming.
+
+Newer version
+![](http://i.imgur.com/e0ypuoG.png)
+
+Setup
+![](http://i.imgur.com/yFhWFv7.png)
 
 Setup
 =====
@@ -15,5 +21,7 @@ For now you need to do a bit work to get it working. When the application gets m
 * When the `npm install` has completed, you're ready to startup the application by running the command `node app.js` in the same folder as npm install. This will guide you through the setup.
 
 Right now there is not an automatic updater implemented in the application. For now you will have to update it manually by downloading the application from Github again and overwriting. However, if you used `git clone` you can simply use `git update`. Remember to restart the application when updating.
+
+You can of course also use io.js instead of Node.js.
 
 [Current backlog](https://trello.com/b/jdk2EpAf/media-frontend)
