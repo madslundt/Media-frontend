@@ -3,9 +3,6 @@ var express        = require('express'),
     fs             = require('fs'),
     url            = require('url'),
     routes         = require('./routes'),
-    cookieParser   = require('cookie-parser'),
-    bodyParser     = require('body-parser'),
-    cookieSession  = require('cookie-session'),
     open           = require('open'),
     path           = require('path');
 
@@ -37,13 +34,6 @@ function startServer(haveConfig) {
 
     });
 
-    app.set('views', __dirname + '/views');
-    app.use(cookieParser());
-    app.use(bodyParser());
-    app.use(cookieSession({secret: 'app_1'}));
-    // app.use(express.bodyParser());
-    // app.use(express.methodOverride());
-    //app.use(express.static(__dirname + '/public'));
     app.use(express.static(path.join(__dirname, 'public')));
 
     if (!haveConfig) {
