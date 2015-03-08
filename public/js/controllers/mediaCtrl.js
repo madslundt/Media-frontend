@@ -1,4 +1,4 @@
-mediaApp.controller('mediaCtrl', function($scope, socket) {
+mediaApp.controller('mediaCtrl', ['$scope', 'socket', function($scope, socket) {
     'use strict';
     $scope.medias = {
         'couchpotato': {
@@ -32,7 +32,6 @@ mediaApp.controller('mediaCtrl', function($scope, socket) {
     };
 
     $scope.loading = true;
-
     /*==========  COUCHPOTATO  ==========*/
     socket.on('GET:couchpotato.available.movies', function (data) {
         if (data) {
@@ -173,4 +172,4 @@ mediaApp.controller('mediaCtrl', function($scope, socket) {
     $scope.getPoster = function (imdb) {
         return getMedia(imdb);
     };
-});
+}]);

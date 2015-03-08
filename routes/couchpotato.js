@@ -53,4 +53,10 @@ module.exports = function (socket) {
             socket.emit('GET:couchpotato.search', data);
         });
     });
+
+    socket.on('disconnect', function() {
+        delete couchpotato;
+        delete config;
+        delete cp;
+    });
 };

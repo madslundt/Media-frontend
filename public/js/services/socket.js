@@ -1,4 +1,4 @@
-mediaApp.factory('socket', function ($rootScope) {
+mediaApp.factory('socket', ['$rootScope', function ($rootScope) {
   var socket = io.connect();
   return {
     on: function (eventName, callback) {
@@ -20,4 +20,4 @@ mediaApp.factory('socket', function ($rootScope) {
       })
     }
   };
-});
+}]);

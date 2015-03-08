@@ -61,5 +61,9 @@ module.exports = function (socket) {
 
     socket.on('disconnect', function() {
         clearInterval(listgroups_timer);
+        delete ng;
+        delete nzbget;
+        delete config;
+        delete refresh_timer
     });
 };

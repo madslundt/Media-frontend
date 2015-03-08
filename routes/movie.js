@@ -12,4 +12,9 @@ module.exports = function (socket) {
             socket.emit('GET:search', data);
         });
     });
+
+    socket.on('disconnect', function() {
+        delete search;
+        delete movie;
+    });
 };

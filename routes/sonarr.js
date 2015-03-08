@@ -54,4 +54,9 @@ module.exports = function (socket) {
         }
     });
 
+    socket.on('disconnect', function() {
+        delete sonarr;
+        delete config;
+        delete sn;
+    });
 };
