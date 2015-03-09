@@ -14,7 +14,7 @@
 		<meta http-equiv="Pragma" content="no-cache" />
 		<meta http-equiv="Expires" content="0" />
 	</head>
-	<body>
+	<body ng-controller="appCtrl">
 		<div class="container-fluid">
             <div class="row">
                 <div class="col-md-4 col-sm-5 col-xs-12">
@@ -62,7 +62,14 @@
         <div class="overlay" ng-if="loading"><div class="loading"></div></div>
 		<footer>
 			<div class="container">
-				Media frontend &copy; 2015 Mads Lundt
+                <div class="row">
+                    <div class="col-xs-8">
+        				Media frontend &copy; 2015 Mads Lundt
+                    </div>
+                    <div class="col-xs-4">
+                        <button class="btn btn-link pull-right" ng-click="updateNow()">Update</button>
+                    </div>
+                </div>
 			</div>
 		</footer>
 		<script src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -81,5 +88,6 @@
 		<script src="js/controllers/nzbgetCtrl.js"></script>
 		<script src="js/controllers/movieCtrl.js"></script>
 		<script src="js/controllers/tvCtrl.js"></script>
+        <script src="js/controllers/appCtrl.js"></script>
 	</body>
 </html>

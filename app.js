@@ -61,6 +61,8 @@ function startServer(haveConfig) {
 
         app.get('*', routes.index); // Redirect rest to /
 
+        io.sockets.on('connection', require('./routes/updater'));
+
         if (CONFIG.nzbget.active)
             io.sockets.on('connection', require('./routes/nzbget'));
         if (CONFIG.couchpotato.active)
