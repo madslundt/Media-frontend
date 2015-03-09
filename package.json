@@ -15,8 +15,7 @@
     "imdb-api": "x",
     "omdb": "x",
     "node-movie": "x",
-    "open": "x",
-    "auto-updater": "x"
+    "open": "x"
   },
   "version":"0.1.0",
     "auto-updater": {

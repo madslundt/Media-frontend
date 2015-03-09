@@ -3,6 +3,7 @@ config.js
 config.json
 .htaccess
 .htpasswd
-node_modules/
+!node_modules/
 node_modules/*
+!node_modules/auto-updater
 npm-debug.log
