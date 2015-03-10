@@ -82,12 +82,14 @@ mediaApp.controller('setupCtrl', function($scope, $timeout, socket) {
     };
 
 	$scope.finishSetup = function () {
+        $scope.media.password = CryptoJS.SHA256($scope.media.password).toString(CryptoJS.enc.Hex);
         $scope.overlayLoad = true;
 		socket.emit('setConfig', $scope.media);
 		$timeout(function () {
 			socket.on('setConfigAvailable', function (res) {
 				if (!res.editable) {
-					location.href = 'http://127.0.0.1:' + res.port;
+                    location.port = res.port;
+					location.href = '/';
 				}
 			});
 		}, 1000);

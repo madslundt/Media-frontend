@@ -6,4 +6,5 @@ config.json
 !node_modules/
 node_modules/*
 !node_modules/auto-updater
+!node_moduels/passport.socketio
 npm-debug.log
