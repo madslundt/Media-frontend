@@ -1,11 +1,14 @@
-var express        = require('express'),
-    http           = require('http'),
-    fs             = require('fs'),
-    url            = require('url'),
-    routes         = require('./routes'),
-    open           = require('open'),
-    path           = require('path');
-
+var express             = require('express'),
+    http                = require('http'),
+    fs                  = require('fs'),
+    url                 = require('url'),
+    routes              = require('./routes'),
+    open                = require('open'),
+    path                = require('path');
+    //session             = require('express-session'),
+    //passportSocketIo    = require('passport.socketio'),
+    //RedisStore          = require('connect-redis')(session);
+    // http://stackoverflow.com/questions/26224377/authentication-with-node-express-socket-io
 function startServer(haveConfig) {
     var app = express();
     var server = http.createServer(app);
