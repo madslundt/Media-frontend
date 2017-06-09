@@ -1,3 +1,6 @@
+The development has stopped for this application.
+Please use my (chrome extension)[https://github.com/madslundt/RadarrSonarrPlex] instead.
+
 Media-frontend
 ==============
 
